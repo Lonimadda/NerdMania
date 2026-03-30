@@ -1,5 +1,6 @@
 package it.Gruppo.NerdMania.DTO;
 
+import it.Gruppo.NerdMania.Modelli.Ordine;
 import it.Gruppo.NerdMania.Modelli.Prodotto;
 import it.Gruppo.NerdMania.Modelli.Spedizione;
 import it.Gruppo.NerdMania.Modelli.User;
@@ -14,19 +15,18 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrdineDto {
+public class SpedizioneDto {
 
     private Integer id;
 
-    private float costo_totale;
+    private float altezza;
+    private float spessore;
 
-    private Integer numero_prodotti;
+    private float lunghezza;
 
-    private String indirizzo_spedizione;
+    private float peso;
 
-    private User utente;
+    private boolean estero;
 
-    private List<Prodotto> prodotti;
-
-    private Spedizione spedizione;
+    private Ordine ordine;
 }
