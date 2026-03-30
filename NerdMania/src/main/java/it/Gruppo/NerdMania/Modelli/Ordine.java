@@ -36,7 +36,6 @@ public class Ordine {
     )
     private List<Prodotto> prodotti;
 
-    @OneToOne
-    @JoinColumn(name = "spedizione_id", referencedColumnName = "id")
+    @OneToOne(mappedBy = "ordine", cascade = CascadeType.ALL)
     private Spedizione spedizione;
 }
