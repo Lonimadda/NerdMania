@@ -1,5 +1,6 @@
 package it.Gruppo.NerdMania.DTO;
 
+import it.Gruppo.NerdMania.Modelli.Catalogo;
 import it.Gruppo.NerdMania.Modelli.Prodotto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
