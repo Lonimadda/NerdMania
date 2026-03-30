@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Magazzino", schema = "NerdMania")
+@Table(name = "Magazzino", schema = "nerdmania")
 public class Magazzino {
 
     @Id
