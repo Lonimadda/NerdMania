@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 
 
 @Getter
@@ -19,8 +20,8 @@ public class UserDto {
     private String email;
     private Boolean cartaFedelta;
 
-    private Carrello carrello;
+    private CarrelloDto carrello;
 
-    private List<Ordine> ordini;
+    private List<OrdineDto> ordini;
 
 }
