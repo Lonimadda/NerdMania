@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Prodotto", schema = "NerdMania")
+@Table(name = "Prodotto", schema = "nerdmania")
 public class Prodotto {
 
     @Id
@@ -33,4 +33,9 @@ public class Prodotto {
 
     @ManyToMany(mappedBy = "prodotti")
     private List<Magazzino> magazzini;
+
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
+
 }

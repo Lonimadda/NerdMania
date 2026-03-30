@@ -11,7 +11,7 @@ import lombok.Setter;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Carrello", schema = "NerdMania")
+@Table(name = "Carrello", schema = "nerdmania")
 public class Carrello {                      //LorenzoLombardi
 
     @Id
@@ -25,11 +25,11 @@ public class Carrello {                      //LorenzoLombardi
     private Double peso;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "username")
     private User user;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ordine_id", referencedColumnName = "id")
+    @JoinColumn(name = "ordine_id", referencedColumnName = "username")
     private Ordine ordine;
 
 
