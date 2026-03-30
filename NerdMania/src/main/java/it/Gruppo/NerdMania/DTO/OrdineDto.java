@@ -1,5 +1,8 @@
 package it.Gruppo.NerdMania.DTO;
 
+import it.Gruppo.NerdMania.Modelli.Prodotto;
+import it.Gruppo.NerdMania.Modelli.Spedizione;
+import it.Gruppo.NerdMania.Modelli.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,7 +1,6 @@
 package it.Gruppo.NerdMania.DTO;
 
-import it.Gruppo.NerdMania.Modelli.Catalogo;
-import it.Gruppo.NerdMania.Modelli.Prodotto;
+import it.Gruppo.NerdMania.Modelli.Categoria;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,12 +10,13 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class CategoriaDto {
+@NoArgsConstructor
+public class CatalogoDto {                              //LorenzoLombardi
 
     private Long id;
+
     private String nome;
-    private Catalogo catalogo;
-    private List<Prodotto> prodotti;
+
+    private List<Categoria> categorie;
 }
