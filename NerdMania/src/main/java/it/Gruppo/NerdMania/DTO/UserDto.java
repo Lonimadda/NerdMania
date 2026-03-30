@@ -1,0 +1,26 @@
+package it.Gruppo.NerdMania.DTO;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserDto {
+
+    private String username;
+    private String nome;
+    private String cognome;
+    private String email;
+    private Boolean cartaFedelta;
+
+    private Carrello carrello;
+
+    private List<Ordine> ordini;
+
+}
