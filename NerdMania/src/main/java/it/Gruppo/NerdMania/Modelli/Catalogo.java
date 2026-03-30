@@ -6,14 +6,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.ArrayList;
 
 @Getter
 @Setter
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-public class Categoria {
+@Table(name = "Catalogo", schema = "NerdMania")
+public class Catalogo {                              //LorenzoLombardi
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,9 +22,6 @@ public class Categoria {
 
     private String nome;
 
-    @ManyToOne
-    private Catalogo catalogo;
-
-    @OneToMany(mappedBy = "categoria")
-    private List<Prodotto> prodotti;
+    @OneToMany(mappedBy = "catalogo")
+    private List<Categoria> categorie;
 }
