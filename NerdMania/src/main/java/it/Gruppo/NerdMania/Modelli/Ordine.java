@@ -25,12 +25,13 @@ public class Ordine {
     private String indirizzo_spedizione;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "username")
     private User user;
 
     @ManyToMany
     @JoinTable(
             name = "ordine_prodotto",
+            schema = "nerdmania",
             joinColumns = @JoinColumn(name = "ordine_id"),
             inverseJoinColumns = @JoinColumn(name = "prodotto_id")
     )
