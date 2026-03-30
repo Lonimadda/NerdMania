@@ -18,8 +18,6 @@ public class Prodotto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-
     private long id;
 
     private String nome;
@@ -32,4 +30,7 @@ public class Prodotto {
 
     @ManyToMany(mappedBy = "prodotti")
     private List<Ordine> ordini;
+
+    @ManyToMany(mappedBy = "prodotti")
+    private List<Magazzino> magazzini;
 }
