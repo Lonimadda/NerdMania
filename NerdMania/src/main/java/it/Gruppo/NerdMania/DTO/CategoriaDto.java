@@ -1,5 +1,6 @@
 package it.Gruppo.NerdMania.DTO;
 
+import it.Gruppo.NerdMania.Modelli.Prodotto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,21 +8,14 @@ import lombok.Setter;
 
 import java.util.List;
 
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
+public class CategoriaDto {
 
-    private String username;
+    private Long id;
     private String nome;
-    private String cognome;
-    private String email;
-    private Boolean cartaFedelta;
-
-    private CarrelloDto carrello;
-
-    private List<OrdineDto> ordini;
-
+    private Catalogo catalogo;
+    private List<Prodotto> prodotti;
 }
