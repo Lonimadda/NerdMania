@@ -20,7 +20,7 @@ public class CatalogoService extends AbstractService<Catalogo, CatalogoDto>{    
     private final CatalogoRepository catalogoRepository;
 
     @Autowired
-    public CatalogoService(JpaRepository<Catalogo, Integer> repository, Converter<Catalogo, CatalogoDto> converter, CatalogoMapper catalogoMapper, CatalogoRepository catalogoRepository) {
+    public CatalogoService(CatalogoRepository repository, Converter<Catalogo, CatalogoDto> converter, CatalogoMapper catalogoMapper, CatalogoRepository catalogoRepository) {
         super(repository, converter);  // passiamo direttamente la repository concreta
         this.catalogoMapper = catalogoMapper;
         this.catalogoRepository = catalogoRepository;

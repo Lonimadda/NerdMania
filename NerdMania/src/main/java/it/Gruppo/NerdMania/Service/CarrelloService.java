@@ -8,7 +8,6 @@ import it.Gruppo.NerdMania.Modelli.Carrello;
 import it.Gruppo.NerdMania.Modelli.User;
 import it.Gruppo.NerdMania.Repository.CarrelloRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +19,7 @@ public class CarrelloService extends AbstractService<Carrello, CarrelloDto>{    
     private final CarrelloRepository carrelloRepository;
 
     @Autowired
-    public CarrelloService(JpaRepository<Carrello, Integer> repository,
+    public CarrelloService(CarrelloRepository repository,
                            Converter<Carrello, CarrelloDto> converter,
                            CarrelloMapper carrelloMapper,
                            CarrelloRepository carrelloRepository) {
