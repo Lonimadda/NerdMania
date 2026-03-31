@@ -25,11 +25,11 @@ public class Carrello {                      //LorenzoLombardi
     private Double peso;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "username")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ordine_id", referencedColumnName = "username")
+    @JoinColumn(name = "ordine_id", referencedColumnName = "id")
     private Ordine ordine;
 
 
