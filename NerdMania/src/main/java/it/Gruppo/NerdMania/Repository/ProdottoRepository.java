@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ProdottoRepository extends JpaRepository<Prodotto, Long> {
+public interface ProdottoRepository extends JpaRepository<Prodotto, Integer> {
 
     // Ricerca per nome o descrizione
     @Query("SELECT p FROM Prodotto p WHERE LOWER(p.nome) LIKE LOWER(CONCAT('%', ?1, '%')) OR LOWER(p.descrizione) LIKE LOWER(CONCAT('%', ?1, '%'))")

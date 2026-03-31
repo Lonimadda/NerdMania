@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MagazzinoRepository extends JpaRepository<Magazzino, Long> {
+public interface MagazzinoRepository extends JpaRepository<Magazzino, Integer> {
 
     // Ricerca per nome o indirizzo
     @Query("SELECT m FROM Magazzino m WHERE LOWER(m.nome) LIKE LOWER(CONCAT('%', ?1, '%')) OR LOWER(m.indirizzo) LIKE LOWER(CONCAT('%', ?1, '%'))")
