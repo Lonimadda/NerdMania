@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserService extends AbstractService<User, UserDto>{
+public class UserService extends AbstractService<User, UserDto, Integer>{
 
 private final UserMapper userMapper;
 

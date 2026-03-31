@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CategoriaService extends AbstractService<Categoria, CategoriaDto> {
+public class CategoriaService extends AbstractService<Categoria, CategoriaDto, Integer> {
 
     private final CategoriaRepository categoriaRepository;
     private final CategoriaMapper categoriaMapper;
