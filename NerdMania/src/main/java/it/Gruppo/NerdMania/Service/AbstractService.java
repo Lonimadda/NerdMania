@@ -3,6 +3,8 @@ package it.Gruppo.NerdMania.Service;
 import it.Gruppo.NerdMania.Mapper.Converter;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+
+
 public abstract class AbstractService<ENTITY, DTO> implements ServiceDTO<DTO> {
 
     protected JpaRepository<ENTITY, Integer> repository;
