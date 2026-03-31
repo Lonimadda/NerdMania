@@ -1,5 +1,6 @@
 package it.Gruppo.NerdMania.Modelli;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,5 +34,6 @@ public class Magazzino {
             joinColumns = @JoinColumn(name = "magazzino_id"),
             inverseJoinColumns = @JoinColumn(name = "prodotto_id")
     )
+    @JsonIgnore
     private List<Prodotto> prodotti;
 }

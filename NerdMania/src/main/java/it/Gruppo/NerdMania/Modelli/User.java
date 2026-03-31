@@ -1,5 +1,6 @@
 package it.Gruppo.NerdMania.Modelli;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,6 +36,7 @@ public class User {
     private Carrello carrello;
 
     @OneToMany(mappedBy = "user",  cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Ordine> ordini;
 
 }

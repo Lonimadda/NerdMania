@@ -1,5 +1,6 @@
 package it.Gruppo.NerdMania.Modelli;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,13 +30,16 @@ public class Prodotto {
     private String descrizione;
 
     @ManyToMany(mappedBy = "prodotti")
+    @JsonIgnore
     private List<Ordine> ordini;
 
     @ManyToMany(mappedBy = "prodotti")
+    @JsonIgnore
     private List<Magazzino> magazzini;
 
     @ManyToOne
     @JoinColumn(name = "categoria_id")
+    @JsonIgnore
     private Categoria categoria;
 
 }
