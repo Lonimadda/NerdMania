@@ -43,7 +43,7 @@ class CarrelloServiceTest {
     @Test
     void testFindByUser() {
         User user = new User();
-        user.setUsername("lorenzo");
+        user.setId(1);
 
         Carrello carrello = new Carrello();
         carrello.setId(1);
@@ -63,7 +63,7 @@ class CarrelloServiceTest {
     @Test
     void testFindByUserThrowsWhenNotFound() {
         User user = new User();
-        user.setUsername("lorenzo");
+        user.setId(1);
 
         when(carrelloRepository.findByUser(user)).thenReturn(Optional.empty());
 

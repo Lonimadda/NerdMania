@@ -18,9 +18,9 @@ public class CarrelloController extends AbstractController<CarrelloDto>{        
 
     // Carrello dell’utente (oggetto)
     @GetMapping("/findByUser")
-    public CarrelloDto findByUser(@RequestParam("username") String username) {
+    public CarrelloDto findByUser(@RequestParam("id") Integer id) {
         User user = new User();
-        user.setUsername(username);
+        user.setId(id);
         return carrelloService.findByUser(user);
     }
 
