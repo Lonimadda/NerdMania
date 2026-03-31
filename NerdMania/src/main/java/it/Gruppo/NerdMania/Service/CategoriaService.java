@@ -16,7 +16,7 @@ public class CategoriaService extends AbstractService<Categoria, CategoriaDto> {
     private final CategoriaRepository categoriaRepository;
     private final CategoriaMapper categoriaMapper;
 
-    public CategoriaService(JpaRepository<Categoria, Integer> repository, Converter<Categoria, CategoriaDto> converter, CategoriaMapper categoriaMapper, CategoriaRepository categoriaRepository) {
+    protected CategoriaService(JpaRepository<Categoria, Integer> repository, Converter<Categoria, CategoriaDto> converter, CategoriaMapper categoriaMapper, CategoriaRepository categoriaRepository) {
         super(repository, converter);
         this.categoriaRepository = categoriaRepository;
         this.categoriaMapper = categoriaMapper;
