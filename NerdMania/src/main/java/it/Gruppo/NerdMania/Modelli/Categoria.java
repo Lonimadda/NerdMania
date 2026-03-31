@@ -1,5 +1,6 @@
 package it.Gruppo.NerdMania.Modelli;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,8 +25,10 @@ public class Categoria {
 
     @ManyToOne
     @JoinColumn(name = "catalogo_id", nullable = false)
+    @JsonIgnore
     private Catalogo catalogo;
 
     @OneToMany(mappedBy = "categoria")
+    @JsonIgnore
     private List<Prodotto> prodotti;
 }
