@@ -6,7 +6,7 @@ import it.Gruppo.NerdMania.Modelli.Catalogo;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component                    //LorenzoLombardi
 public class CatalogoMapper extends AbstractConverter<Catalogo, CatalogoDto> {
 
 
