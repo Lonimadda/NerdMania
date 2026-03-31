@@ -18,11 +18,11 @@ public class OrdineDto {
 
     private Integer id;
 
-    private float costo_totale;
+    private float costoTotale;
 
-    private Integer numero_prodotti;
+    private Integer numeroProdotti;
 
-    private String indirizzo_spedizione;
+    private String indirizzoSpedizione;
 
     private User utente;
 
