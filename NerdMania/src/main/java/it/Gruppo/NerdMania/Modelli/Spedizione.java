@@ -1,5 +1,6 @@
 package it.Gruppo.NerdMania.Modelli;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,5 +35,6 @@ public class Spedizione {
 
     @OneToOne
     @JoinColumn(name = "ordine_id")
+    @JsonIgnore
     private Ordine ordine;
 }
