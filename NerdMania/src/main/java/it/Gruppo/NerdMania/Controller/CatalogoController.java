@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("Catalogo")
 @CrossOrigin(origins = "http://localhost:4200")
-public class CatalogoController {               //LorenzoLombardi
+public class CatalogoController extends AbstractController<CatalogoDto>{               //LorenzoLombardi
 
     @Autowired
     private CatalogoService catalogoService;
@@ -33,7 +33,7 @@ public class CatalogoController {               //LorenzoLombardi
         return catalogoService.findByNomeContaining(nome);
     }
 
-    // 4️⃣ Trova cataloghi che iniziano con
+    //Trova cataloghi che iniziano con
     @GetMapping("/findByNomeStartingWith")
     public List<CatalogoDto> findByNomeStartingWith(@RequestParam("nome") String nome) {
         return catalogoService.findByNomeStartingWith(nome);

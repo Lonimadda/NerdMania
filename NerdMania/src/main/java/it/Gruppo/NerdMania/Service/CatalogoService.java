@@ -15,19 +15,17 @@ import java.util.List;
 public class CatalogoService extends AbstractService<Catalogo, CatalogoDto>{         //LorenzoLombardi
 
     private final CatalogoMapper catalogoMapper;
+
+
     private final CatalogoRepository catalogoRepository;
 
     @Autowired
-    public CatalogoService(JpaRepository<Catalogo, Integer> repository,
-                           Converter<Catalogo, CatalogoDto> converter,
-                           CatalogoMapper catalogoMapper,
-                           CatalogoRepository catalogoRepository) {
-        super(repository, converter);
+    public CatalogoService(JpaRepository<Catalogo, Integer> repository, Converter<Catalogo, CatalogoDto> converter, CatalogoMapper catalogoMapper, CatalogoRepository catalogoRepository) {
+        super(repository, converter);  // passiamo direttamente la repository concreta
         this.catalogoMapper = catalogoMapper;
         this.catalogoRepository = catalogoRepository;
     }
-
-    // 🔎 Trova catalogo per nome
+    //Trova catalogo per nome
     public CatalogoDto findByNome(String nome) {
         return catalogoMapper.toDTO(
                 catalogoRepository.findByNome(nome)
@@ -35,12 +33,12 @@ public class CatalogoService extends AbstractService<Catalogo, CatalogoDto>{    
         );
     }
 
-    // 🔍 Controlla esistenza
+    //Controlla esistenza
     public boolean existsByNome(String nome) {
         return catalogoRepository.existsByNome(nome);
     }
 
-    // 🔎 Contiene parola
+    //Contiene parola
     public List<CatalogoDto> findByNomeContaining(String nome) {
         return catalogoRepository.findByNomeContaining(nome)
                 .stream()
@@ -48,7 +46,7 @@ public class CatalogoService extends AbstractService<Catalogo, CatalogoDto>{    
                 .toList();
     }
 
-    // 🔎 Inizia con
+    //Inizia con
     public List<CatalogoDto> findByNomeStartingWith(String nome) {
         return catalogoRepository.findByNomeStartingWith(nome)
                 .stream()
@@ -56,7 +54,7 @@ public class CatalogoService extends AbstractService<Catalogo, CatalogoDto>{    
                 .toList();
     }
 
-    // 🔎 Finisce con
+    //Finisce con
     public List<CatalogoDto> findByNomeEndingWith(String nome) {
         return catalogoRepository.findByNomeEndingWith(nome)
                 .stream()
@@ -64,7 +62,7 @@ public class CatalogoService extends AbstractService<Catalogo, CatalogoDto>{    
                 .toList();
     }
 
-    // 📦 Cataloghi con categorie
+    //Cataloghi con categorie
     public List<CatalogoDto> findCataloghiConCategorie() {
         return catalogoRepository.findByCategorieIsNotNull()
                 .stream()
@@ -72,7 +70,7 @@ public class CatalogoService extends AbstractService<Catalogo, CatalogoDto>{    
                 .toList();
     }
 
-    // 📦 Cataloghi vuoti
+    //Cataloghi vuoti
     public List<CatalogoDto> findCataloghiSenzaCategorie() {
         return catalogoRepository.findByCategorieIsNull()
                 .stream()
@@ -80,9 +78,9 @@ public class CatalogoService extends AbstractService<Catalogo, CatalogoDto>{    
                 .toList();
     }
 
-    // 📊 Cataloghi con più di X categorie
+    //Cataloghi con più di X categorie
     public List<CatalogoDto> findByNumeroCategorieGreaterThan(int size) {
-        return catalogoRepository.findByCategorie_SizeGreaterThan(size)
+        return catalogoRepository.findByNumeroCategorieGreaterThan(size)
                 .stream()
                 .map(catalogoMapper::toDTO)
                 .toList();

@@ -2,13 +2,15 @@ package it.Gruppo.NerdMania.Repository;
 
 import it.Gruppo.NerdMania.Modelli.Catalogo;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CatalogoRepository extends JpaRepository<Catalogo, Long> {            //LorenzoLombardi
+public interface CatalogoRepository extends JpaRepository<Catalogo, Integer> {            //LorenzoLombardi
 
     //Trova catalogo per nome
     Optional<Catalogo> findByNome(String nome);
@@ -32,5 +34,6 @@ public interface CatalogoRepository extends JpaRepository<Catalogo, Long> {     
     List<Catalogo> findByCategorieIsNull();
 
     //Trova cataloghi con più di X categorie
-    List<Catalogo> findByCategorie_SizeGreaterThan(int size);
+    @Query("SELECT c FROM Catalogo c WHERE SIZE(c.categorie) > :size")
+    List<Catalogo> findByNumeroCategorieGreaterThan(@Param("size") int size);
 }

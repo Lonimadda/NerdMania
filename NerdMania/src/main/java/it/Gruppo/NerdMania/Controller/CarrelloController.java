@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("Carrello")
 @CrossOrigin(origins = "http://localhost:4200")
-public class CarrelloController {                //LorenzoLombardi
+public class CarrelloController extends AbstractController<CarrelloDto>{                //LorenzoLombardi
 
     @Autowired
     private CarrelloService carrelloService;
@@ -32,7 +32,7 @@ public class CarrelloController {                //LorenzoLombardi
 
     //Carrelli sopra una certa soglia di prezzo (admin/statistiche)
     @GetMapping("/findByPrezzoTotaleGreaterThan")
-    public List<CarrelloDto> findByPrezzoTotaleGreaterThan(@RequestParam("prezzo") Double prezzo) {
+    public List<CarrelloDto> findByPrezzoTotaleGreaterThan(@RequestParam("prezzoTotale") Double prezzo) {
         return carrelloService.findByPrezzoTotaleGreaterThan(prezzo);
     }
 
