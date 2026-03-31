@@ -23,8 +23,40 @@ private final UserRepository userRepository;
         this.userRepository = userRepository;
     }
 
-    
+    public List<UserDto> findfindByNomeContainingIgnoreCase(String nome) {
+        return userMapper.toDTOList(userRepository.findByNomeContainingIgnoreCase(nome));
+    }
 
+    public List<UserDto> findByNomeContainingIgnoreCaseAndCognomeContainingIgnoreCase(String nome, String cognome) {
+        return userMapper.toDTOList(userRepository.findByNomeContainingIgnoreCaseAndCognomeContainingIgnoreCase(nome, cognome));
+    }
 
+    public List<UserDto> findByCognome(String cognome) {
+        return userMapper.toDTOList(userRepository.findByCognome(cognome));
+    }
+
+    public List<UserDto> findByCartaFedeltaTrue(){
+        return userMapper.toDTOList(userRepository.findByCartaFedeltaTrue());
+    }
+
+    public List<UserDto> findByCartaFedeltaFalse(){
+        return userMapper.toDTOList(userRepository.findByCartaFedeltaFalse());
+    }
+
+    public boolean exiexistsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    public boolean exiexistsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+
+    public List<UserDto> findAllByOrderByNomeAsc(){
+        return userMapper.toDTOList(userRepository.findAllByOrderByNomeAsc());
+    }
+
+    public List<UserDto> findAllByOrderByCognomeAsc(){
+        return userMapper.toDTOList(userRepository.findAllByOrderByCognomeAsc());
+    }
 
 }
