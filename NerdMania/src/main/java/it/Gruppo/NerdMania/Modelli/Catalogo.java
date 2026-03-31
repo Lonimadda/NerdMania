@@ -1,5 +1,6 @@
 package it.Gruppo.NerdMania.Modelli;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +15,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Catalogo", schema = "nerdmania")
+@Table(name = "catalogo", schema = "nerdmania")
 public class Catalogo {                              //LorenzoLombardi
 
     @Id
@@ -24,5 +25,6 @@ public class Catalogo {                              //LorenzoLombardi
     private String nome;
 
     @OneToMany(mappedBy = "catalogo")
+    @JsonIgnore
     private List<Categoria> categorie;
 }

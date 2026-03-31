@@ -1,5 +1,6 @@
 package it.Gruppo.NerdMania.Modelli;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,6 +36,7 @@ public class Ordine {
             joinColumns = @JoinColumn(name = "ordine_id"),
             inverseJoinColumns = @JoinColumn(name = "prodotto_id")
     )
+    @JsonIgnore
     private List<Prodotto> prodotti;
 
     @OneToOne(mappedBy = "ordine", cascade = CascadeType.ALL)
