@@ -1,6 +1,6 @@
 package it.Gruppo.NerdMania.Service;
 
-public interface ServiceDTO<DTO, ID> {
+public interface ServiceDTO<DTO> {
 
     DTO insert(DTO dto);
 
@@ -8,7 +8,7 @@ public interface ServiceDTO<DTO, ID> {
 
     Iterable<DTO> getAll();
 
-    DTO read(ID id);
+    DTO read(Integer id);
 
-    void delete(ID id);
+    void delete(Integer id);
 }

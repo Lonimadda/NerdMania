@@ -3,12 +3,12 @@ package it.Gruppo.NerdMania.Service;
 import it.Gruppo.NerdMania.Mapper.Converter;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public abstract class AbstractService<ENTITY, DTO, ID> implements ServiceDTO<DTO, ID> {
+public abstract class AbstractService<ENTITY, DTO> implements ServiceDTO<DTO> {
 
-    protected JpaRepository<ENTITY, ID> repository;
+    protected JpaRepository<ENTITY, Integer> repository;
     protected Converter<ENTITY, DTO> converter;
 
-    public AbstractService(JpaRepository<ENTITY, ID> repository, Converter<ENTITY, DTO> converter) {
+    public AbstractService(JpaRepository<ENTITY, Integer> repository, Converter<ENTITY, DTO> converter) {
         this.repository = repository;
         this.converter = converter;
     }
@@ -29,12 +29,12 @@ public abstract class AbstractService<ENTITY, DTO, ID> implements ServiceDTO<DTO
     }
 
     @Override
-    public DTO read(ID id) {
+    public DTO read(Integer id) {
         return converter.toDTO(repository.findById(id).orElse(null));
     }
 
     @Override
-    public void delete(ID id) {
+    public void delete(Integer id) {
         repository.deleteById(id);
     }
 }

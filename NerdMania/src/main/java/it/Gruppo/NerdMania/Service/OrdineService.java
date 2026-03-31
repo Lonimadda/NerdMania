@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class OrdineService extends AbstractService<Ordine, OrdineDto, Integer> {
+public class OrdineService extends AbstractService<Ordine, OrdineDto> {
 
     private final OrdineMapper ordineMapper;
     private final OrdineRepository ordineRepository;
