@@ -20,9 +20,9 @@ public class Ordine {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private float costo_totale;
+    private float costoTotale;
 
-    private String indirizzo_spedizione;
+    private String indirizzoSpedizione;
 
     @ManyToOne
     @JoinColumn(name = "username")
