@@ -5,7 +5,7 @@ import it.Gruppo.NerdMania.Modelli.Carrello;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component                        //LorenzoLombardi
 public class CarrelloMapper extends AbstractConverter<Carrello, CarrelloDto> {
 
 
