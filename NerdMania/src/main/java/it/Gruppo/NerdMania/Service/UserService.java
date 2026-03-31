@@ -6,7 +6,11 @@ import it.Gruppo.NerdMania.Mapper.UserMapper;
 import it.Gruppo.NerdMania.Modelli.User;
 import it.Gruppo.NerdMania.Repository.UserRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
 public class UserService extends AbstractService<User, UserDto>{
 
 private final UserMapper userMapper;
