@@ -17,7 +17,7 @@ public class UserController {
 
     @GetMapping("/findfindByNomeContainingIgnoreCase")
     public List<UserDto> findByNomeContainingIgnoreCase(@RequestParam ("nome") String nome) {
-        return userService.findfindByNomeContainingIgnoreCase(nome);
+        return userService.findByNomeContainingIgnoreCase(nome);
     }
 
     @GetMapping("/findByNomeContainingIgnoreCaseAndCognomeContainingIgnoreCase")
