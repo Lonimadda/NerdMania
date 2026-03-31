@@ -18,11 +18,12 @@ public class Categoria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String nome;
 
     @ManyToOne
+    @JoinColumn(name = "catalogo_id", nullable = false)
     private Catalogo catalogo;
 
     @OneToMany(mappedBy = "categoria")

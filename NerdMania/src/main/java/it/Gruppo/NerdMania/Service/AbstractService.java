@@ -14,23 +14,23 @@ public abstract class AbstractService<ENTITY, DTO> implements ServiceDTO<DTO> {
     }
 
     @Override
-    public DTO insert (DTO dto){
+    public DTO insert(DTO dto) {
         return converter.toDTO(repository.save(converter.toEntity(dto)));
     }
 
     @Override
-    public DTO update (DTO dto){
+    public DTO update(DTO dto) {
         return converter.toDTO(repository.save(converter.toEntity(dto)));
     }
 
     @Override
-    public Iterable<DTO> getAll(){
+    public Iterable<DTO> getAll() {
         return converter.toDTOList(repository.findAll());
     }
 
     @Override
-    public DTO read (Integer id){
-        return converter.toDTO(repository.findById(id).get());
+    public DTO read(Integer id) {
+        return converter.toDTO(repository.findById(id).orElse(null));
     }
 
     @Override
