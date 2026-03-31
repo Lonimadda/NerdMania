@@ -1,10 +1,14 @@
 package it.Gruppo.NerdMania.Service;
 
-public interface ServiceDTO<DTO> {
+public interface ServiceDTO<DTO, ID> {
 
-    public Iterable<DTO> getAll();
-    public DTO read (Integer id);
-    public DTO insert(DTO dto);
-    public DTO update(DTO dto);
-    public void delete(Integer id);
+    DTO insert(DTO dto);
+
+    DTO update(DTO dto);
+
+    Iterable<DTO> getAll();
+
+    DTO read(ID id);
+
+    void delete(ID id);
 }
