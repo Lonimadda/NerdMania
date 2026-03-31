@@ -4,6 +4,7 @@ import it.Gruppo.NerdMania.DTO.UserDto;
 import it.Gruppo.NerdMania.Mapper.Converter;
 import it.Gruppo.NerdMania.Mapper.UserMapper;
 import it.Gruppo.NerdMania.Modelli.User;
+import it.Gruppo.NerdMania.Repository.UserRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public class UserService extends AbstractService<User, UserDto>{
