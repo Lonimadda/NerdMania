@@ -25,7 +25,7 @@ public class Ordine {
     private String indirizzoSpedizione;
 
     @ManyToOne
-    @JoinColumn(name = "username")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToMany
