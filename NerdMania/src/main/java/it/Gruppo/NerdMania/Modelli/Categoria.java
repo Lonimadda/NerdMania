@@ -23,6 +23,7 @@ public class Categoria {
     private String nome;
 
     @ManyToOne
+    @JoinColumn(name = "catalogo_id", nullable = false)
     private Catalogo catalogo;
 
     @OneToMany(mappedBy = "categoria")
