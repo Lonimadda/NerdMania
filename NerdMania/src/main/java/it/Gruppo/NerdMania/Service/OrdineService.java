@@ -6,9 +6,10 @@ import it.Gruppo.NerdMania.Mapper.OrdineMapper;
 import it.Gruppo.NerdMania.Modelli.Ordine;
 import it.Gruppo.NerdMania.Repository.OrdineRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
-
+import org.springframework.stereotype.Service;
 import java.util.List;
 
+@Service
 public class OrdineService extends AbstractService<Ordine, OrdineDto> {
 
     private final OrdineMapper ordineMapper;
