@@ -1,5 +1,6 @@
 package it.Gruppo.NerdMania.Controller;
 
+import it.Gruppo.NerdMania.DTO.SpedizioneDto;
 import it.Gruppo.NerdMania.DTO.UserDto;
 import it.Gruppo.NerdMania.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("User")
 @CrossOrigin(origins = "http://localhost:8080")
-public class UserController {
+public class UserController extends AbstractController<UserDto>{
 
     @Autowired
     private UserService userService;
