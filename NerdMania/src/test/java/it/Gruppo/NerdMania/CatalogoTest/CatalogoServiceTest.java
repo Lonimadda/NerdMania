@@ -13,8 +13,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Optional;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -40,7 +40,7 @@ class CatalogoServiceTest {
     @Test
     void testFindByNome() {
         Catalogo catalogo = new Catalogo();
-        catalogo.setId(1L);
+        catalogo.setId(1);
         catalogo.setNome("Manga");
 
         CatalogoDto dto = new CatalogoDto(1L, "Manga", List.of());
@@ -72,16 +72,16 @@ class CatalogoServiceTest {
 
         boolean result = catalogoService.existsByNome("Manga");
 
-        assertEquals(true, result);
+        assertTrue(result);
         verify(catalogoRepository).existsByNome("Manga");
     }
 
     @Test
     void testFindByNomeContaining() {
         Catalogo catalogo1 = new Catalogo();
-        catalogo1.setId(1L);
+        catalogo1.setId(1);
         Catalogo catalogo2 = new Catalogo();
-        catalogo2.setId(2L);
+        catalogo2.setId(2);
 
         CatalogoDto dto1 = new CatalogoDto(1L, "Manga", List.of());
         CatalogoDto dto2 = new CatalogoDto(2L, "Super Manga", List.of());
@@ -103,7 +103,7 @@ class CatalogoServiceTest {
     @Test
     void testFindByNomeStartingWith() {
         Catalogo catalogo = new Catalogo();
-        catalogo.setId(3L);
+        catalogo.setId(3);
 
         CatalogoDto dto = new CatalogoDto(3L, "Game Pass", List.of());
 
@@ -113,7 +113,7 @@ class CatalogoServiceTest {
         List<CatalogoDto> result = catalogoService.findByNomeStartingWith("Game");
 
         assertEquals(1, result.size());
-        assertEquals(dto, result.get(0));
+        assertEquals(dto, result.getFirst());
         verify(catalogoRepository).findByNomeStartingWith("Game");
         verify(catalogoMapper).toDTO(catalogo);
     }
@@ -121,7 +121,7 @@ class CatalogoServiceTest {
     @Test
     void testFindByNomeEndingWith() {
         Catalogo catalogo = new Catalogo();
-        catalogo.setId(4L);
+        catalogo.setId(4);
 
         CatalogoDto dto = new CatalogoDto(4L, "Action Figure", List.of());
 
@@ -131,7 +131,7 @@ class CatalogoServiceTest {
         List<CatalogoDto> result = catalogoService.findByNomeEndingWith("Figure");
 
         assertEquals(1, result.size());
-        assertEquals(dto, result.get(0));
+        assertEquals(dto, result.getFirst());
         verify(catalogoRepository).findByNomeEndingWith("Figure");
         verify(catalogoMapper).toDTO(catalogo);
     }
@@ -139,7 +139,7 @@ class CatalogoServiceTest {
     @Test
     void testFindCataloghiConCategorie() {
         Catalogo catalogo = new Catalogo();
-        catalogo.setId(5L);
+        catalogo.setId(5);
 
         CatalogoDto dto = new CatalogoDto(5L, "Anime", List.of());
 
@@ -149,7 +149,7 @@ class CatalogoServiceTest {
         List<CatalogoDto> result = catalogoService.findCataloghiConCategorie();
 
         assertEquals(1, result.size());
-        assertEquals(dto, result.get(0));
+        assertEquals(dto, result.getFirst());
         verify(catalogoRepository).findByCategorieIsNotNull();
         verify(catalogoMapper).toDTO(catalogo);
     }
@@ -157,7 +157,7 @@ class CatalogoServiceTest {
     @Test
     void testFindCataloghiSenzaCategorie() {
         Catalogo catalogo = new Catalogo();
-        catalogo.setId(6L);
+        catalogo.setId(6);
 
         CatalogoDto dto = new CatalogoDto(6L, "Vuoto", List.of());
 
@@ -167,7 +167,7 @@ class CatalogoServiceTest {
         List<CatalogoDto> result = catalogoService.findCataloghiSenzaCategorie();
 
         assertEquals(1, result.size());
-        assertEquals(dto, result.get(0));
+        assertEquals(dto, result.getFirst());
         verify(catalogoRepository).findByCategorieIsNull();
         verify(catalogoMapper).toDTO(catalogo);
     }
@@ -175,7 +175,7 @@ class CatalogoServiceTest {
     @Test
     void testFindByNumeroCategorieGreaterThan() {
         Catalogo catalogo = new Catalogo();
-        catalogo.setId(7L);
+        catalogo.setId(7);
 
         CatalogoDto dto = new CatalogoDto(7L, "Completo", List.of());
 
@@ -185,7 +185,7 @@ class CatalogoServiceTest {
         List<CatalogoDto> result = catalogoService.findByNumeroCategorieGreaterThan(3);
 
         assertEquals(1, result.size());
-        assertEquals(dto, result.get(0));
+        assertEquals(dto, result.getFirst());
         verify(catalogoRepository).findByNumeroCategorieGreaterThan(3);
         verify(catalogoMapper).toDTO(catalogo);
     }
