@@ -37,13 +37,13 @@ class CarrelloControllerTest {
         when(carrelloService.findByUser(org.mockito.ArgumentMatchers.any()))
                 .thenReturn(dto);
 
-        ResultActions id = mockMvc.perform(get("/Carrello/findByUser")
+        mockMvc.perform(get("/Carrello/findByUser")
                         .param("id", "1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(is(1)))
                 .andExpect(jsonPath("$.prezzoTotale").value(closeTo(50.0, 0.001)))
                 .andExpect(jsonPath("$.quantita").value(is(3)))
-                .andExpect(jsonPath("$.peso").value(closeTo(1.2, 0.001)));
+                .andExpect(jsonPath("$.peso").value(closeTo(1.2, 0.001)))
     }
 
     @Test
