@@ -23,7 +23,7 @@ private final UserRepository userRepository;
         this.userRepository = userRepository;
     }
 
-    public List<UserDto> findfindByNomeContainingIgnoreCase(String nome) {
+    public List<UserDto> findByNomeContainingIgnoreCase(String nome) {
         return userMapper.toDTOList(userRepository.findByNomeContainingIgnoreCase(nome));
     }
 
