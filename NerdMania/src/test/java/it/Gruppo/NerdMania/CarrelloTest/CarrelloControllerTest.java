@@ -9,6 +9,7 @@ import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ class CarrelloControllerTest {
         when(carrelloService.findByUser(org.mockito.ArgumentMatchers.any()))
                 .thenReturn(dto);
 
-        mockMvc.perform(get("/Carrello/findByUser")
+        ResultActions id = mockMvc.perform(get("/Carrello/findByUser")
                         .param("id", "1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(is(1)))
