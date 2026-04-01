@@ -32,6 +32,9 @@ public class User {
     private String password;
     private Boolean cartaFedelta;
 
+    @Enumerated(EnumType.STRING)
+    private Ruolo ruolo;
+
     @OneToOne(mappedBy = "user")
     private Carrello carrello;
 
