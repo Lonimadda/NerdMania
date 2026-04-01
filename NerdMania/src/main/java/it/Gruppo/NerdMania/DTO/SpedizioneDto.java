@@ -21,7 +21,7 @@ public class SpedizioneDto {
 
     private float altezza;
     private float spessore;
-
+    private boolean fragile;
     private float lunghezza;
 
     private float peso;
