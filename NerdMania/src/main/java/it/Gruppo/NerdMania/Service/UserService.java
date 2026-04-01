@@ -17,7 +17,7 @@ private final UserMapper userMapper;
 
 private final UserRepository userRepository;
 
-   protected UserService(JpaRepository<User, Integer> repository, Converter<User, UserDto> converter, UserMapper userMapper, UserRepository userRepository) {
+    protected UserService(JpaRepository<User, Integer> repository, Converter<User, UserDto> converter, UserMapper userMapper, UserRepository userRepository) {
         super(repository, converter);
         this.userMapper = userMapper;
         this.userRepository = userRepository;
