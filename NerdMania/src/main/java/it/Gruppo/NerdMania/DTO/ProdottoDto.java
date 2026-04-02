@@ -1,5 +1,6 @@
 package it.Gruppo.NerdMania.DTO;
 
+import it.Gruppo.NerdMania.Modelli.Categoria;
 import lombok.*;
 
 @Getter
@@ -17,4 +18,6 @@ public class ProdottoDto {
     private float peso;
 
     private String descrizione;
+
+    private Categoria categoria;
 }
