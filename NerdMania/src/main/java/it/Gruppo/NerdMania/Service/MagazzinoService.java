@@ -1,14 +1,10 @@
 package it.Gruppo.NerdMania.Service;
 
 import it.Gruppo.NerdMania.DTO.MagazzinoDto;
-import it.Gruppo.NerdMania.DTO.UserDto;
 import it.Gruppo.NerdMania.Mapper.Converter;
 import it.Gruppo.NerdMania.Mapper.MagazzinoMapper;
-import it.Gruppo.NerdMania.Mapper.UserMapper;
 import it.Gruppo.NerdMania.Modelli.Magazzino;
-import it.Gruppo.NerdMania.Modelli.User;
 import it.Gruppo.NerdMania.Repository.MagazzinoRepository;
-import it.Gruppo.NerdMania.Repository.UserRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 

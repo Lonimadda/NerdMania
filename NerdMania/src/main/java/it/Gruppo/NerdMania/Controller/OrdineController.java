@@ -1,6 +1,7 @@
 package it.Gruppo.NerdMania.Controller;
 
 import it.Gruppo.NerdMania.DTO.OrdineDto;
+import it.Gruppo.NerdMania.Service.EmailService;
 import it.Gruppo.NerdMania.Service.OrdineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,18 @@ public class OrdineController extends AbstractController<OrdineDto> {
 
     @Autowired
     private OrdineService service;
+
+
+    @Autowired
+    private EmailService emailService;
+
+
+
+    @PostMapping("/inviaEmailOrdine")
+    public String inviaEmailOrdine(@RequestParam("id") Integer id) {
+        service.inviaEmailOrdine(id);
+        return "Email inviata!";
+    }
 
     @GetMapping("/findByUserUsername")
     public List<OrdineDto> findByUserUsername(@RequestParam("username") String username) {

@@ -1,6 +1,5 @@
 package it.Gruppo.NerdMania.Repository;
 
-import it.Gruppo.NerdMania.Modelli.Ordine;
 import it.Gruppo.NerdMania.Modelli.Spedizione;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
