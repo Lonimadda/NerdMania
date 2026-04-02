@@ -83,7 +83,7 @@ public class CategoriaControllerTest {
 
         assertNotNull(result);
         assertEquals(1, result.size());
-        assertEquals("Anime", result.get(0).getNome());
+        assertEquals("Anime", result.getFirst().getNome());
     }
 
     @Test
@@ -139,7 +139,7 @@ public class CategoriaControllerTest {
 
         assertNotNull(result);
         assertEquals(2, result.size());
-        assertEquals("Anime", result.get(0).getNome());
+        assertEquals("Anime", result.getFirst().getNome());
     }
 
     @Test
