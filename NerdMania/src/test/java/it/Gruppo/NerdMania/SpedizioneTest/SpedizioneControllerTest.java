@@ -1,12 +1,8 @@
 package it.Gruppo.NerdMania.SpedizioneTest;
 
-import it.Gruppo.NerdMania.Controller.OrdineController;
 import it.Gruppo.NerdMania.Controller.SpedizioneController;
-import it.Gruppo.NerdMania.DTO.OrdineDto;
 import it.Gruppo.NerdMania.DTO.SpedizioneDto;
 import it.Gruppo.NerdMania.Modelli.Ordine;
-import it.Gruppo.NerdMania.Modelli.User;
-import it.Gruppo.NerdMania.Service.OrdineService;
 import it.Gruppo.NerdMania.Service.SpedizioneService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

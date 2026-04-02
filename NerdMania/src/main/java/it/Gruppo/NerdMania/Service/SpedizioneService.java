@@ -1,15 +1,10 @@
 package it.Gruppo.NerdMania.Service;
 
-import it.Gruppo.NerdMania.DTO.OrdineDto;
 import it.Gruppo.NerdMania.DTO.SpedizioneDto;
 import it.Gruppo.NerdMania.Mapper.Converter;
-import it.Gruppo.NerdMania.Mapper.OrdineMapper;
 import it.Gruppo.NerdMania.Mapper.SpedizioneMapper;
-import it.Gruppo.NerdMania.Modelli.Ordine;
 import it.Gruppo.NerdMania.Modelli.Spedizione;
-import it.Gruppo.NerdMania.Repository.OrdineRepository;
 import it.Gruppo.NerdMania.Repository.SpedizioneRepository;
-import it.Gruppo.NerdMania.Service.AbstractService;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 

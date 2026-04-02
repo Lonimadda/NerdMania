@@ -3,7 +3,7 @@
 -- ============================
 INSERT INTO nerdmania."user" (id, username, nome, cognome, email, password, carta_fedelta)
 VALUES
-    (1, 'lollo', 'Lorenzo', 'Lombardi', 'lorenzo@example.com', 'password123', true),
+    (1, 'lollo', 'Lorenzo', 'Lombardi', 'lorenzolomb20@gmail.com', 'password123', true),
     (2, 'marioR', 'Mario', 'Rossi', 'mario@example.com', 'pass456', false),
     (3, 'giuliaN', 'Giulia', 'Neri', 'giulia@example.com', 'giulia789', true),
     (4, 'fedeG', 'Federico', 'Gallo', 'fede@example.com', 'fede321', false),

@@ -1,7 +1,6 @@
 package it.Gruppo.NerdMania.CategoriaTest;
 
 
-import it.Gruppo.NerdMania.Controller.CategoriaController;
 import it.Gruppo.NerdMania.DTO.CategoriaDto;
 import it.Gruppo.NerdMania.Mapper.CategoriaMapper;
 import it.Gruppo.NerdMania.Modelli.Categoria;
@@ -27,9 +26,6 @@ public class CategoriaServiceTest {
 
     @Mock
     private CategoriaRepository repository;
-
-    @Mock
-    private CategoriaController controller;
 
     @Mock
     private CategoriaMapper mapper;

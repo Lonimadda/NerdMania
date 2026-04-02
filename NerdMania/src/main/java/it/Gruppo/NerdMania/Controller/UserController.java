@@ -1,6 +1,5 @@
 package it.Gruppo.NerdMania.Controller;
 
-import it.Gruppo.NerdMania.DTO.SpedizioneDto;
 import it.Gruppo.NerdMania.DTO.UserDto;
 import it.Gruppo.NerdMania.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
