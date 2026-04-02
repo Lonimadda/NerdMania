@@ -2,13 +2,14 @@ package it.Gruppo.NerdMania.Repository;
 
 import it.Gruppo.NerdMania.Modelli.Prodotto;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface ProdottoRepository extends JpaRepository<Prodotto, Integer> {
+public interface ProdottoRepository extends JpaRepository<Prodotto, Integer>, JpaSpecificationExecutor<Prodotto> {
 
     // Ricerca per nome o descrizione
     @Query("SELECT p FROM Prodotto p WHERE LOWER(p.nome) LIKE LOWER(CONCAT('%', ?1, '%')) OR LOWER(p.descrizione) LIKE LOWER(CONCAT('%', ?1, '%'))")
