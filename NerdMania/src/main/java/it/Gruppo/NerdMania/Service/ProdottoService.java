@@ -1,14 +1,15 @@
 package it.Gruppo.NerdMania.Service;
 
-import it.Gruppo.NerdMania.DTO.MagazzinoDto;
+
 import it.Gruppo.NerdMania.DTO.ProdottoDto;
 import it.Gruppo.NerdMania.Mapper.Converter;
-import it.Gruppo.NerdMania.Mapper.MagazzinoMapper;
 import it.Gruppo.NerdMania.Mapper.ProdottoMapper;
-import it.Gruppo.NerdMania.Modelli.Magazzino;
 import it.Gruppo.NerdMania.Modelli.Prodotto;
-import it.Gruppo.NerdMania.Repository.MagazzinoRepository;
 import it.Gruppo.NerdMania.Repository.ProdottoRepository;
+import it.Gruppo.NerdMania.Specification.ProdottoSpecification;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,28 @@ public class ProdottoService extends AbstractService<Prodotto, ProdottoDto> {
         super(repository, converter);
         this.prodottoMapper = prodottoMapper;
         this.prodottoRepository = prodottoRepository;
+    }
+
+    public Page<ProdottoDto> getProdottiFiltrati(
+            String nome,
+            Double prezzoMin,
+            Double prezzoMax,
+            Integer categoriaId,
+            Pageable pageable) {
+
+        Specification<Prodotto> spec = Specification
+                .where(ProdottoSpecification.nomeContains(nome))
+                .and(ProdottoSpecification.prezzoMin(prezzoMin))
+                .and(ProdottoSpecification.prezzoMax(prezzoMax))
+                .and(ProdottoSpecification.categoria(categoriaId));
+
+        return prodottoRepository.findAll(spec, pageable)
+                .map(prodottoMapper::toDTO);
+    }
+
+    public Page<ProdottoDto> getProdottiPaginati(Pageable pageable) {
+        return prodottoRepository.findAll(pageable)
+                .map(prodottoMapper::toDTO);
     }
 
     public List<ProdottoDto> search(String keyword) {
