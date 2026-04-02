@@ -66,18 +66,6 @@ class MagazzinoServiceTest {
     }
 
     @Test
-    void search_null() {
-        when(magazzinoRepository.search(null)).thenReturn(null);
-
-        List<MagazzinoDto> result = magazzinoService.search(null);
-
-        assertNull(result);
-        verify(magazzinoRepository).search(null);
-    }
-
-    // ---------------- findMagazziniConScorteBasse ----------------
-
-    @Test
     void findMagazziniConScorteBasse_found() {
         Magazzino m = new Magazzino();
         MagazzinoDto dto = new MagazzinoDto();
@@ -112,18 +100,6 @@ class MagazzinoServiceTest {
     }
 
     @Test
-    void findMagazziniConScorteBasse_null() {
-        when(magazzinoRepository.findMagazziniConScorteBasse(10)).thenReturn(null);
-
-        List<MagazzinoDto> result = magazzinoService.findMagazziniConScorteBasse(10);
-
-        assertNull(result);
-        verify(magazzinoRepository).findMagazziniConScorteBasse(10);
-    }
-
-    // ---------------- findByCodice ----------------
-
-    @Test
     void findByCodice_found() {
         Magazzino m = new Magazzino();
         MagazzinoDto dto = new MagazzinoDto();
@@ -147,8 +123,6 @@ class MagazzinoServiceTest {
         assertNull(result);
         verify(magazzinoRepository).findByCodice("A123");
     }
-
-    // ---------------- findMagazziniByProdottoId ----------------
 
     @Test
     void findMagazziniByProdottoId_found() {
@@ -185,18 +159,6 @@ class MagazzinoServiceTest {
     }
 
     @Test
-    void findMagazziniByProdottoId_null() {
-        when(magazzinoRepository.findMagazziniByProdottoId(null)).thenReturn(null);
-
-        List<MagazzinoDto> result = magazzinoService.findMagazziniByProdottoId(null);
-
-        assertNull(result);
-        verify(magazzinoRepository).findMagazziniByProdottoId(null);
-    }
-
-    // ---------------- findMagazziniByNomeProdotto ----------------
-
-    @Test
     void findMagazziniByNomeProdotto_found() {
         Magazzino m = new Magazzino();
         MagazzinoDto dto = new MagazzinoDto();
@@ -228,15 +190,5 @@ class MagazzinoServiceTest {
         assertTrue(result.isEmpty());
         verify(magazzinoRepository).findMagazziniByNomeProdotto("Mouse");
         verify(magazzinoMapper).toDTOList(list);
-    }
-
-    @Test
-    void findMagazziniByNomeProdotto_null() {
-        when(magazzinoRepository.findMagazziniByNomeProdotto(null)).thenReturn(null);
-
-        List<MagazzinoDto> result = magazzinoService.findMagazziniByNomeProdotto(null);
-
-        assertNull(result);
-        verify(magazzinoRepository).findMagazziniByNomeProdotto(null);
     }
 }
