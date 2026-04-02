@@ -30,7 +30,7 @@ public class Magazzino {
     @ManyToMany
     @JoinTable(
             name = "magazzino_prodotto",
-            schema = "NerdMania",
+            schema = "nerdmania",
             joinColumns = @JoinColumn(name = "magazzino_id"),
             inverseJoinColumns = @JoinColumn(name = "prodotto_id")
     )

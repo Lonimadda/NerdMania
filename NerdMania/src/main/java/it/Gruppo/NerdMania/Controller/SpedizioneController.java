@@ -38,8 +38,8 @@ public class SpedizioneController extends AbstractController<SpedizioneDto> {
     }
 
     @GetMapping("/findByAltezzaBetween")
-    public List<SpedizioneDto> findByAltezzaBetween(@RequestParam float min,
-                                                    @RequestParam float max) {
+    public List<SpedizioneDto> findByAltezzaBetween(@RequestParam("min") float min,
+                                                    @RequestParam("max") float max) {
         return service.findByAltezzaBetween(min,max);
     }
 
