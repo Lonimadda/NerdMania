@@ -20,11 +20,9 @@ public class OrdineDto {
 
     private float costoTotale;
 
-    private Integer numeroProdotti;
-
     private String indirizzoSpedizione;
 
-    private User utente;
+    private User user;
 
     private List<Prodotto> prodotti;
 
