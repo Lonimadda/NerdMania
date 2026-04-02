@@ -5,20 +5,56 @@ import it.Gruppo.NerdMania.Mapper.Converter;
 import it.Gruppo.NerdMania.Mapper.OrdineMapper;
 import it.Gruppo.NerdMania.Modelli.Ordine;
 import it.Gruppo.NerdMania.Repository.OrdineRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class OrdineService extends AbstractService<Ordine, OrdineDto> {
+public class OrdineService extends AbstractService<Ordine, OrdineDto>  {
 
     private final OrdineMapper ordineMapper;
     private final OrdineRepository ordineRepository;
+
+    @Autowired
+    private EmailService emailService;
+
 
     public OrdineService(JpaRepository<Ordine, Integer> repository, Converter<Ordine, OrdineDto> converter, OrdineMapper ordineMapper, OrdineRepository ordineRepository) {
         super(repository, converter);
         this.ordineMapper = ordineMapper;
         this.ordineRepository = ordineRepository;
+    }
+
+    public void inviaEmailOrdine(Integer id) {
+        Ordine ordine = ordineRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Ordine non trovato: " + id));
+
+        String email = ordine.getUser().getEmail();
+        String username = ordine.getUser().getUsername();
+
+        emailService.inviaEmailOrdine(email, username, ordine.getId());
+    }
+
+    @Override
+    public OrdineDto insert(OrdineDto dto) {
+
+        // Salvataggio standard
+        Ordine ordine = ordineMapper.toEntity(dto);
+        Ordine salvato = ordineRepository.save(ordine);
+
+        // DATI UTENTE
+        String email = salvato.getUser().getEmail();
+        String username = salvato.getUser().getUsername();
+
+        // INVIO EMAIL
+        try {
+            emailService.inviaEmailOrdine(email, username, salvato.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return ordineMapper.toDTO(salvato);
     }
 
     public List<OrdineDto> findByUserUsername(String username) {
