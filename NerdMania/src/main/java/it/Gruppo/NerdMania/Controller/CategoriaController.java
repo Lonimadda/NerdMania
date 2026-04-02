@@ -1,7 +1,9 @@
 package it.Gruppo.NerdMania.Controller;
 
 import it.Gruppo.NerdMania.DTO.CategoriaDto;
+import it.Gruppo.NerdMania.DTO.SpedizioneDto;
 import it.Gruppo.NerdMania.DTO.UserDto;
+import it.Gruppo.NerdMania.Repository.CategoriaRepository;
 import it.Gruppo.NerdMania.Service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
