@@ -1,8 +1,6 @@
 package it.Gruppo.NerdMania.Controller;
 
-import it.Gruppo.NerdMania.DTO.OrdineDto;
 import it.Gruppo.NerdMania.DTO.SpedizioneDto;
-import it.Gruppo.NerdMania.Service.OrdineService;
 import it.Gruppo.NerdMania.Service.SpedizioneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
