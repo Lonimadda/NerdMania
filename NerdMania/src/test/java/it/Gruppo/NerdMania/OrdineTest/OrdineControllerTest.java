@@ -1,6 +1,5 @@
 package it.Gruppo.NerdMania.OrdineTest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import it.Gruppo.NerdMania.Controller.OrdineController;
 import it.Gruppo.NerdMania.DTO.OrdineDto;
 import it.Gruppo.NerdMania.Modelli.Prodotto;
