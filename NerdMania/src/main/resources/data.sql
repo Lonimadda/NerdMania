@@ -101,5 +101,5 @@ INSERT INTO nerdmania."carrello" (id, prezzo_totale, quantita, peso, user_id, or
 VALUES
     (1, 649.98, 2, 4.7, 1, 1),
     (2, 19.99, 1, 0.3, 2, 2),
-    (3, 129.99, 1, 1.1, 3, 3),
+    (3, 129.99, 1, 1.1, 3, null),
     (4, 679.98, 2, 4.9, 4, 4);

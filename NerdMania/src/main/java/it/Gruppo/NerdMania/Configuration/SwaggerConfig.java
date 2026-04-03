@@ -6,13 +6,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class SwaggerConfig {
+public class SwaggerConfig {                      //http://localhost:8080/swagger-ui/index.html
 
     @Bean
     public GroupedOpenApi publicApi() {
         return GroupedOpenApi.builder()
                 .group("spring")
-                .pathsToMatch("/**")
+                .pathsToMatch("/**")               //includi tutti gli endpoint del progetto
                 .build();
     }
 }

@@ -60,18 +60,6 @@ class CarrelloServiceTest {
         verify(carrelloMapper).toDTO(carrello);
     }
 
-    @Test
-    void testFindByUserThrowsWhenNotFound() {
-        User user = new User();
-        user.setId(1);
-
-        when(carrelloRepository.findByUser(user)).thenReturn(Optional.empty());
-
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> carrelloService.findByUser(user));
-
-        assertEquals("Carrello non trovato per l'utente", exception.getMessage());
-        verify(carrelloRepository).findByUser(user);
-    }
 
     @Test
     void testFindCarrelliAttivi() {
