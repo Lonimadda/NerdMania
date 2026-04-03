@@ -42,13 +42,13 @@ public class SpedizioneController extends AbstractController<SpedizioneDto> {
     }
 
     @GetMapping("/findByOrdineId")
-    public List<SpedizioneDto> findByOrdineId(Integer id) {
+    public List<SpedizioneDto> findByOrdineId(@RequestParam("id") Integer id) {
         return service.findByOrdineId(id);
     }
 
     @GetMapping("/findByAltezzaGreaterThanOrLunghezzaGreaterThan")
-    public List<SpedizioneDto> findByAltezzaGreaterThanOrLunghezzaGreaterThan(@RequestParam float h,
-                                                                              @RequestParam float l) {
+    public List<SpedizioneDto> findByAltezzaGreaterThanOrLunghezzaGreaterThan(@RequestParam("h") float h,
+                                                                              @RequestParam("l") float l) {
         return service.findByAltezzaGreaterThanOrLunghezzaGreaterThan(h,l);
     }
 }
