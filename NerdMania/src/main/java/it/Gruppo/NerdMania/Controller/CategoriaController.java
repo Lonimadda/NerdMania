@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("Categoria")
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CategoriaController extends AbstractController<UserDto>{
     @Autowired
     private CategoriaService categoriaService;

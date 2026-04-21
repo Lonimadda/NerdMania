@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("User")
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserController extends AbstractController<UserDto>{
 
     @Autowired
