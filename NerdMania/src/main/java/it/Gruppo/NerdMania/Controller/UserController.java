@@ -15,7 +15,7 @@ public class UserController extends AbstractController<UserDto>{
     @Autowired
     private UserService userService;
 
-    @GetMapping("/findfindByNomeContainingIgnoreCase")
+    @GetMapping("/findByNomeContainingIgnoreCase")
     public List<UserDto> findByNomeContainingIgnoreCase(@RequestParam ("nome") String nome) {
         return userService.findByNomeContainingIgnoreCase(nome);
     }
