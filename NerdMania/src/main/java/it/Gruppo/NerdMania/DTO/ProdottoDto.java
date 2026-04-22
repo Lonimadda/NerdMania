@@ -19,5 +19,7 @@ public class ProdottoDto {
 
     private String descrizione;
 
+    private String immagineUrl;
+
     private Categoria categoria;
 }

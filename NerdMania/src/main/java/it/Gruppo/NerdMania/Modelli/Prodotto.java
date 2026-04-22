@@ -29,6 +29,9 @@ public class Prodotto {
 
     private String descrizione;
 
+    @Column(name = "immagine_url", length = 1000)
+    private String immagineUrl;
+
     @ManyToMany(mappedBy = "prodotti")
     @JsonIgnore
     private List<Ordine> ordini;
