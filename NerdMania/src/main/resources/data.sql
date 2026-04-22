@@ -36,7 +36,7 @@ VALUES
 -- ============================
 -- PRODOTTI (30)
 -- ============================
-INSERT INTO nerdmania."prodotto" (nome, prezzo, peso, descrizione, categoria_id, "immagineUrl")
+INSERT INTO nerdmania."prodotto" (nome, prezzo, peso, descrizione, categoria_id, "immagine_url")
 VALUES
 -- Console
 ('PlayStation 5', 599.99, 4.5, 'Console Sony next-gen', 1, 'https://ricondizionati.mediaworld.it/dw/image/v2/BJRJ_PRD/on/demandware.static/-/Sites-mw-refurbished-catalog-master/default/dw7525b7ce/images/hi-res/401535.jpg?sw=1000&sh=1000'),
@@ -154,16 +154,4 @@ VALUES
     (true, 18, 12, 22, 0.8, false, 7),
     (false, 30, 18, 35, 1.1, true, 8);
 
--- ============================
--- CARRELLI
--- ============================
-INSERT INTO nerdmania."carrello" (prezzo_totale, quantita, peso, user_id, ordine_id)
-VALUES
-    (649.98, 2, 4.7, 1, 1),
-    (19.99, 1, 0.3, 2, 2),
-    (129.99, 1, 1.1, 3, 3),
-    (679.98, 2, 4.9, 4, 4),
-    (159.98, 2, 0.6, 5, 5),
-    (299.99, 3, 1.1, 1, 6),
-    (89.99, 1, 0.35, 3, 7),
-    (199.99, 2, 0.6, 2, 8);
+
