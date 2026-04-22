@@ -4,7 +4,9 @@ import it.Gruppo.NerdMania.DTO.OrdineDto;
 import it.Gruppo.NerdMania.Mapper.Converter;
 import it.Gruppo.NerdMania.Mapper.OrdineMapper;
 import it.Gruppo.NerdMania.Modelli.Ordine;
+import it.Gruppo.NerdMania.Modelli.User;
 import it.Gruppo.NerdMania.Repository.OrdineRepository;
+import it.Gruppo.NerdMania.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
@@ -15,37 +17,36 @@ public class OrdineService extends AbstractService<Ordine, OrdineDto>  {
 
     private final OrdineMapper ordineMapper;
     private final OrdineRepository ordineRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     private EmailService emailService;
 
 
-    public OrdineService(JpaRepository<Ordine, Integer> repository, Converter<Ordine, OrdineDto> converter, OrdineMapper ordineMapper, OrdineRepository ordineRepository) {
+    public OrdineService(JpaRepository<Ordine, Integer> repository, Converter<Ordine, OrdineDto> converter, OrdineMapper ordineMapper, OrdineRepository ordineRepository, UserRepository userRepository) {
         super(repository, converter);
         this.ordineMapper = ordineMapper;
         this.ordineRepository = ordineRepository;
-    }
-
-    public void inviaEmailOrdine(Integer id) {
-        Ordine ordine = ordineRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Ordine non trovato: " + id));
-
-        String email = ordine.getUser().getEmail();
-        String username = ordine.getUser().getUsername();
-
-        emailService.inviaEmailOrdine(email, username, ordine.getId());
+        this.userRepository= userRepository;
     }
 
     @Override
     public OrdineDto insert(OrdineDto dto) {
 
-        // Salvataggio standard
         Ordine ordine = ordineMapper.toEntity(dto);
+
+        // 🔥 RECUPERO USER DAL DB
+        Integer userId = dto.getUser().getId();
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User non trovato"));
+
+        ordine.setUser(user);
+
         Ordine salvato = ordineRepository.save(ordine);
 
-        // DATI UTENTE
-        String email = salvato.getUser().getEmail();
-        String username = salvato.getUser().getUsername();
+        // DATI UTENTE (ora funzionano)
+        String email = user.getEmail();
+        String username = user.getUsername();
 
         // INVIO EMAIL
         try {

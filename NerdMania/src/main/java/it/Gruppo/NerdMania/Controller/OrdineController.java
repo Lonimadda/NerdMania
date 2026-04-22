@@ -16,18 +16,6 @@ public class OrdineController extends AbstractController<OrdineDto> {
     @Autowired
     private OrdineService service;
 
-
-    @Autowired
-    private EmailService emailService;
-
-
-
-    @PostMapping("/inviaEmailOrdine")
-    public String inviaEmailOrdine(@RequestParam("id") Integer id) {
-        service.inviaEmailOrdine(id);
-        return "Email inviata!";
-    }
-
     @GetMapping("/findByUserUsername")
     public List<OrdineDto> findByUserUsername(@RequestParam("username") String username) {
         return service.findByUserUsername(username);

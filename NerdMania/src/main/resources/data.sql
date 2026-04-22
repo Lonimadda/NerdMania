@@ -103,3 +103,5 @@ VALUES
     (2, 19.99, 1, 0.3, 2, 2),
     (3, 129.99, 1, 1.1, 3, 3),
     (4, 679.98, 2, 4.9, 4, 4);
+
+SELECT setval('nerdmania.ordine_id_seq', (SELECT MAX(id) FROM nerdmania.ordine));
