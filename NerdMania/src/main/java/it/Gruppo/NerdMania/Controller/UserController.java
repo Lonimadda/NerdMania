@@ -5,6 +5,8 @@ import it.Gruppo.NerdMania.Mapper.UserMapper;
 import it.Gruppo.NerdMania.Modelli.User;
 import it.Gruppo.NerdMania.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -64,9 +66,23 @@ public class UserController extends AbstractController<UserDto>{
     }
 
     @PostMapping("/register")
-    public UserDto register(@RequestBody UserDto dto) {
-        return userService.register(
-                userMapper.toEntity(dto)
-        );
+    public ResponseEntity<?> register(@RequestBody UserDto dto) {
+
+        try {
+
+            UserDto savedUser = userService.register(
+                    userMapper.toEntity(dto)
+            );
+
+            return ResponseEntity.ok(savedUser);
+
+        } catch (RuntimeException e) {
+
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body(e.getMessage());
+
+        }
+
     }
 }

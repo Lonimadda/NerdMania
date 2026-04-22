@@ -2,7 +2,11 @@ package it.Gruppo.NerdMania.Controller;
 
 import it.Gruppo.NerdMania.DTO.LoginRequest;
 import it.Gruppo.NerdMania.DTO.LoginResponse;
+import it.Gruppo.NerdMania.DTO.UserDto;
+import it.Gruppo.NerdMania.Mapper.UserMapper;
+import it.Gruppo.NerdMania.Modelli.User;
 import it.Gruppo.NerdMania.Service.JwtService;
+import it.Gruppo.NerdMania.Service.UserService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,11 +22,15 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+    private final UserService userService;
+    private final UserMapper userMapper;
 
     public AuthController(AuthenticationManager authenticationManager,
-                          JwtService jwtService) {
+                          JwtService jwtService, UserService userService, UserMapper userMapper) {
         this.authenticationManager = authenticationManager;
         this.jwtService = jwtService;
+        this.userService = userService;
+        this.userMapper = userMapper;
     }
 
     @PostMapping("/login")
@@ -37,8 +45,16 @@ public class AuthController {
 
         String token = jwtService.generateToken(request.getUsername());
 
+        User user =
+                userService
+                        .findByUsername(request.getUsername())
+                        .orElseThrow();
+
+        UserDto dto =
+                userMapper.toDTO(user);
+
         return ResponseEntity.ok(
-                new LoginResponse("LOGIN_OK", token)
+                new LoginResponse("LOGIN_OK", token, dto)
         );
     }
 }
