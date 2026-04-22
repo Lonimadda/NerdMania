@@ -13,26 +13,24 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "Carrello", schema = "nerdmania")
-public class Carrello {                      //LorenzoLombardi
+public class Carrello {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private Double prezzoTotale;
-
     private Integer quantita;
-
     private Double peso;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    // NIENTE cascade su User: il carrello non deve creare/aggiornare utenti
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, unique = true)
     @JsonIgnore
     private User user;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    // Anche qui evitiamo cascade ALL per non propagare merge indesiderati
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ordine_id", referencedColumnName = "id")
     private Ordine ordine;
-
-
 }

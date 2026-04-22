@@ -13,6 +13,8 @@ public class CarrelloDto {          //LorenzoLombardi
 
     private Integer id;
 
+    private Integer userId;
+
     private Double prezzoTotale;
 
     private Integer quantita;
