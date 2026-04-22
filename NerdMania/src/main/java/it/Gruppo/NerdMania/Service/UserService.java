@@ -5,7 +5,9 @@ import it.Gruppo.NerdMania.Mapper.Converter;
 import it.Gruppo.NerdMania.Mapper.UserMapper;
 import it.Gruppo.NerdMania.Modelli.User;
 import it.Gruppo.NerdMania.Repository.UserRepository;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,10 +19,13 @@ private final UserMapper userMapper;
 
 private final UserRepository userRepository;
 
-   protected UserService(JpaRepository<User, Integer> repository, Converter<User, UserDto> converter, UserMapper userMapper, UserRepository userRepository) {
+private final PasswordEncoder passwordEncoder;
+
+   protected UserService(JpaRepository<User, Integer> repository, Converter<User, UserDto> converter, UserMapper userMapper, UserRepository userRepository, PasswordEncoder passwordEncoder) {
         super(repository, converter);
         this.userMapper = userMapper;
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<UserDto> findByNomeContainingIgnoreCase(String nome) {
@@ -57,6 +62,12 @@ private final UserRepository userRepository;
 
     public List<UserDto> findAllByOrderByCognomeAsc(){
         return userMapper.toDTOList(userRepository.findAllByOrderByCognomeAsc());
+    }
+
+    public UserDto register(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User savedUser = userRepository.save(user); 
+        return userMapper.toDTO(savedUser);
     }
 
 }

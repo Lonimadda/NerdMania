@@ -1,6 +1,8 @@
 package it.Gruppo.NerdMania.Controller;
 
 import it.Gruppo.NerdMania.DTO.UserDto;
+import it.Gruppo.NerdMania.Mapper.UserMapper;
+import it.Gruppo.NerdMania.Modelli.User;
 import it.Gruppo.NerdMania.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,8 @@ public class UserController extends AbstractController<UserDto>{
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserMapper userMapper;
 
     @GetMapping("/findByNomeContainingIgnoreCase")
     public List<UserDto> findByNomeContainingIgnoreCase(@RequestParam ("nome") String nome) {
@@ -59,5 +63,10 @@ public class UserController extends AbstractController<UserDto>{
         return userService.findAllByOrderByCognomeAsc();
     }
 
-
+    @PostMapping("/register")
+    public UserDto register(@RequestBody UserDto dto) {
+        return userService.register(
+                userMapper.toEntity(dto)
+        );
+    }
 }
