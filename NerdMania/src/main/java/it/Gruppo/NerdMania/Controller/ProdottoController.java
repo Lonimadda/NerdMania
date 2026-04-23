@@ -52,6 +52,13 @@ public class ProdottoController extends AbstractController<ProdottoDto> {
         return service.search(keyword);
         // Restituisce i prodotti che corrispondono alla ricerca
     }
+    @GetMapping("/findById")
+
+    public ProdottoDto findById(@RequestParam("id") Integer id) {
+
+        return service.findById(id);
+
+    }
 
     @GetMapping("/findProdottiEconomici")
     // Endpoint GET per trovare prodotti con prezzo <= prezzoMax
@@ -102,4 +109,5 @@ public class ProdottoController extends AbstractController<ProdottoDto> {
         return service.findByCategoriaId(categoriaId);
         // Restituisce tutti i prodotti della categoria indicata
     }
+
 }

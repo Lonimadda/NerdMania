@@ -55,6 +55,13 @@ public class ProdottoService extends AbstractService<Prodotto, ProdottoDto> {
         );
     }
 
+    public ProdottoDto findById(Integer id) {
+        Prodotto prodotto = prodottoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Prodotto non trovato"));
+
+        return prodottoMapper.toDTO(prodotto);
+    }
+
     public List<ProdottoDto> findProdottiEconomici(Double prezzoMax) {
         return prodottoMapper.toDTOList(
                 prodottoRepository.findProdottiEconomici(prezzoMax)

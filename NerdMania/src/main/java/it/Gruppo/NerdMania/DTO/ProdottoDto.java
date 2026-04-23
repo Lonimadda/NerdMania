@@ -21,5 +21,10 @@ public class ProdottoDto {
 
     private String immagineUrl;
 
+    private float altezza;
+    private float spessore;
+    private float lunghezza;
+    private boolean fragile;
+
     private Categoria categoria;
 }

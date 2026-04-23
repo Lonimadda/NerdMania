@@ -29,6 +29,13 @@ public class Prodotto {
 
     private String descrizione;
 
+    private float altezza;
+    private float spessore;
+    private float lunghezza;
+    private boolean fragile;
+
+
+
     @Column(name = "immagine_url", length = 1000)
     private String immagineUrl;
 
