@@ -1,5 +1,6 @@
 package it.Gruppo.NerdMania.DTO;
 
+import it.Gruppo.NerdMania.Modelli.Ruolo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,7 @@ public class UserDto {
     private String email;
     private String password;
     private Boolean cartaFedelta;
+    private Ruolo ruolo;
 
     private CarrelloDto carrello;
 
