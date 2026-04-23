@@ -50,6 +50,7 @@ public class SecurityConfig {
                         .requestMatchers("/Prodotto/**").permitAll()
                         .requestMatchers("/Categoria/**").permitAll()
                         .requestMatchers("/Catalogo/**").permitAll()
+                        .requestMatchers("/Ordine/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
