@@ -19,10 +19,7 @@ public class SpedizioneDto {
     private float spessore;
     private boolean fragile;
     private float lunghezza;
-
     private float peso;
-
-    private boolean estero;
 
     private Ordine ordine;
 }
