@@ -20,11 +20,6 @@ public class SpedizioneController extends AbstractController<SpedizioneDto> {
         return service.findByFragileTrue();
     }
 
-    @GetMapping("/findByEsteroTrue")
-    public List<SpedizioneDto> findByEsteroTrue() {
-        return service.findByEsteroTrue();
-    }
-
     @GetMapping("/findByPesoGreaterThan")
     public List<SpedizioneDto> findByPesoGreaterThan(@RequestParam("peso") float peso) {
         return service.findByPesoGreaterThan(peso);

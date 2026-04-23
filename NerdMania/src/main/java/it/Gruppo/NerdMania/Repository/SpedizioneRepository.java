@@ -12,9 +12,6 @@ public interface SpedizioneRepository extends JpaRepository<Spedizione, Integer>
     //METODO CHE CERCA LE SPEDIZIONI FRAGILI
     List<Spedizione> findByFragileTrue();
 
-    //METODO CHE CERCA LE SPEDIZIONI FATTE ALL'ESTERO
-    List<Spedizione> findByEsteroTrue();
-
     //METODO CHE CERCA LE SPEDIZIONI CON PESO MAGGIORE DI UNO INSERITO IN INPUT
     List<Spedizione> findByPesoGreaterThan(float peso);
 

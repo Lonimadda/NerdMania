@@ -26,10 +26,6 @@ public class SpedizioneService extends AbstractService<Spedizione, SpedizioneDto
         return spedizioneMapper.toDTOList(spedizioneRepository.findByFragileTrue());
     }
 
-    public List<SpedizioneDto> findByEsteroTrue() {
-        return spedizioneMapper.toDTOList(spedizioneRepository.findByEsteroTrue());
-    }
-
     public List<SpedizioneDto> findByPesoGreaterThan(float peso) {
         return spedizioneMapper.toDTOList(spedizioneRepository.findByPesoGreaterThan(peso));
     }

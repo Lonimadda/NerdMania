@@ -30,8 +30,6 @@ public class Spedizione {
 
     private float peso;
 
-    private boolean estero;
-
     @OneToOne
     @JoinColumn(name = "ordine_id")
     @JsonIgnore
