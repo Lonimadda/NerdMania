@@ -77,4 +77,14 @@ private final PasswordEncoder passwordEncoder;
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+
+    public void updateCartaFedelta(Integer id, boolean value) {
+
+        User user = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User non trovato"));
+
+        user.setCartaFedelta(value);
+
+        repository.save(user);
+    }
 }

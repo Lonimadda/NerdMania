@@ -36,4 +36,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     List<User> findAllByOrderByCognomeAsc();
 
     Optional<User> findByUsername(String username);
+
+    
 }

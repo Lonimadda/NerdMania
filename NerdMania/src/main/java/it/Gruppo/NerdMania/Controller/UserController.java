@@ -2,6 +2,7 @@ package it.Gruppo.NerdMania.Controller;
 
 import it.Gruppo.NerdMania.DTO.UserDto;
 import it.Gruppo.NerdMania.Mapper.UserMapper;
+import it.Gruppo.NerdMania.Modelli.Ruolo;
 import it.Gruppo.NerdMania.Modelli.User;
 import it.Gruppo.NerdMania.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,6 +70,8 @@ public class UserController extends AbstractController<UserDto>{
     public ResponseEntity<?> register(@RequestBody UserDto dto) {
 
         try {
+            dto.setRuolo(Ruolo.USER);
+            dto.setCartaFedelta(false);
 
             UserDto savedUser = userService.register(
                     userMapper.toEntity(dto)
@@ -84,5 +87,14 @@ public class UserController extends AbstractController<UserDto>{
 
         }
 
+    }
+
+    @PatchMapping("/updateCartaFedelta")
+    public ResponseEntity<Void> updateCartaFedelta(
+            @RequestParam Integer id,
+            @RequestParam boolean value
+    ) {
+        userService.updateCartaFedelta(id, value);
+        return ResponseEntity.ok().build();
     }
 }
