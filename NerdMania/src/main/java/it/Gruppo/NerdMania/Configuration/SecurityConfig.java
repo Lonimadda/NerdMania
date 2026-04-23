@@ -51,6 +51,7 @@ public class SecurityConfig {
                         .requestMatchers("/Categoria/**").permitAll()
                         .requestMatchers("/Catalogo/**").permitAll()
                         .requestMatchers("/Ordine/**").permitAll()
+                        .requestMatchers("/Ordine/insert").hasRole("USER")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
