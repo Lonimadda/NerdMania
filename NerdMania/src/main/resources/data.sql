@@ -1,13 +1,9 @@
 -- ============================
 -- UTENTI
 -- ============================
-INSERT INTO nerdmania."user" (username, nome, cognome, email, password, carta_fedelta)
+INSERT INTO nerdmania."user" (username, nome, cognome, email, password, carta_fedelta, ruolo)
 VALUES
-    ('lollo', 'Lorenzo', 'Lombardi', 'lorenzolomb20@gmail.com', 'password123', true),
-    ('marioR', 'Mario', 'Rossi', 'mario@example.com', 'pass456', false),
-    ('giuliaN', 'Giulia', 'Neri', 'giulia@example.com', 'giulia789', true),
-    ('fedeG', 'Federico', 'Gallo', 'fede@example.com', 'fede321', false),
-    ('annaB', 'Anna', 'Bianchi', 'anna@example.com', 'anna654', true);
+    ('admin', 'admin', 'admin', 'admin@gmail.com', '$2a$10$ZHXjyKl4TKSwDpb2oNszjuUux7k79QoeuZKdqQd4fuC3LF/rN3uLy', true,'ADMIN');
 
 -- ============================
 -- CATALOGHI
@@ -122,47 +118,4 @@ VALUES
 -- Magazzino Centro (3)
 (3, 11), (3, 12), (3, 15), (3, 16), (3, 19),
 (3, 20), (3, 23), (3, 24), (3, 27), (3, 28);
-
--- ============================
--- ORDINI
--- ============================
-INSERT INTO nerdmania."ordine" (costo_totale, indirizzo_spedizione, user_id)
-VALUES
-    (649.98, 'Via Roma 55, Napoli', 1),
-    (19.99, 'Via Firenze 12, Milano', 2),
-    (129.99, 'Via Torino 33, Torino', 3),
-    (679.98, 'Via Bari 77, Bari', 4),
-    (159.98, 'Via Milano 44, Milano', 5),
-    (299.99, 'Via Napoli 88, Napoli', 1),
-    (89.99, 'Via Roma 12, Roma', 3),
-    (199.99, 'Via Palermo 77, Palermo', 2);
-
--- ============================
--- ORDINE - PRODOTTO
--- ============================
-INSERT INTO nerdmania."ordine_prodotto" (ordine_id, prodotto_id)
-VALUES
-    (1, 1), (1, 3),
-    (2, 5),
-    (3, 13),
-    (4, 1), (4, 17),
-    (5, 29), (5, 30),
-    (6, 3), (6, 10), (6, 12),
-    (7, 17),
-    (8, 25), (8, 28);
-
--- ============================
--- SPEDIZIONI
--- ============================
-INSERT INTO nerdmania."spedizione" (fragile, altezza, spessore, lunghezza, peso, ordine_id)
-VALUES
-    (false, 40, 20, 60, 5,  1),
-    (true, 15, 10, 20, 0.5, 2),
-    (false, 12, 8, 25, 1.2,  3),
-    (true, 45, 25, 70, 6,  4),
-    (false, 20, 15, 30, 1.5,  5),
-    (false, 25, 20, 40, 2.0, 6),
-    (true, 18, 12, 22, 0.8,  7),
-    (false, 30, 18, 35, 1.1,  8);
-
 
