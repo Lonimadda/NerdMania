@@ -6,6 +6,7 @@ import it.Gruppo.NerdMania.Mapper.OrdineMapper;
 import it.Gruppo.NerdMania.Modelli.*;
 import it.Gruppo.NerdMania.Repository.CarrelloRepository;
 import it.Gruppo.NerdMania.Repository.OrdineRepository;
+import it.Gruppo.NerdMania.Repository.ProdottoRepository;
 import it.Gruppo.NerdMania.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,78 +19,90 @@ public class OrdineService extends AbstractService<Ordine, OrdineDto>  {
     private final OrdineMapper ordineMapper;
     private final OrdineRepository ordineRepository;
     private final UserRepository userRepository;
-    private final CarrelloRepository carrelloRepository;
+    private final ProdottoRepository prodottoRepository;
 
     @Autowired
     private EmailService emailService;
 
-    public OrdineService(JpaRepository<Ordine, Integer> repository, Converter<Ordine, OrdineDto> converter, OrdineMapper ordineMapper, OrdineRepository ordineRepository, UserRepository userRepository, CarrelloRepository carrelloRepository) {
+
+    public OrdineService(JpaRepository<Ordine, Integer> repository, Converter<Ordine, OrdineDto> converter, OrdineMapper ordineMapper, OrdineRepository ordineRepository, UserRepository userRepository, ProdottoRepository prodottoRepository) {
         super(repository, converter);
         this.ordineMapper = ordineMapper;
         this.ordineRepository = ordineRepository;
         this.userRepository= userRepository;
-        this.carrelloRepository=carrelloRepository;
+        this.prodottoRepository=prodottoRepository;
     }
 
     @Override
     public OrdineDto insert(OrdineDto dto) {
+        System.out.println("ddddddddddddddd");
 
         Ordine ordine = ordineMapper.toEntity(dto);
 
-        // 🔥 RECUPERO USER DAL DB
-        Integer userId = dto.getUser().getId();
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User non trovato"));
+    // 🔥 RECUPERO USER DAL DB
+    Integer userId = dto.getUser().getId();
+    User user = userRepository.findById(userId)
+            .orElseThrow(() -> new RuntimeException("User non trovato"));
 
-        ordine.setUser(user);
+    ordine.setUser(user);
 
-        // 🔹 RECUPERO CARRELLO
-        Carrello carrello = carrelloRepository.findByUser(user)
-                        .orElseThrow(() -> new RuntimeException("User non trovato"));
-
-        // 🔥 COSTO DAL CARRELLO
-        ordine.setCostoTotale(carrello.getPrezzoTotale().floatValue());
-
-        // 🔥 CREAZIONE SPEDIZIONE
-        Spedizione spedizione = new Spedizione();
-
-        // PESO DAL CARRELLO
-        spedizione.setPeso(carrello.getPeso().floatValue());
-
-        // FRAGILE → almeno un prodotto fragile
-        boolean fragile = ordine.getProdotti()
+        List<Prodotto> prodotti = dto.getProdotti()
                 .stream()
-                .anyMatch(Prodotto::isFragile);
+                .map(p -> prodottoRepository.findById(p.getId())
+                        .orElseThrow(() -> new RuntimeException("Prodotto non trovato")))
+                .toList();
 
-        spedizione.setFragile(fragile);
+        prodotti.forEach(System.out::println);
+        ordine.setProdotti(prodotti);
 
-        // DIMENSIONI → massimo tra i prodotti
-        float altezzaMax = ordine.getProdotti()
-                .stream()
-                .map(Prodotto::getAltezza)
-                .max(Float::compare)
-                .orElse(0f);
+    /*
+    // 🔹 RECUPERO CARRELLO
+    Carrello carrello = carrelloRepository.findByUser(user)
+                    .orElseThrow(() -> new RuntimeException("User non trovato"));
 
-        float lunghezzaMax = ordine.getProdotti()
-                .stream()
-                .map(Prodotto::getLunghezza)
-                .max(Float::compare)
-                .orElse(0f);
+    // 🔥 COSTO DAL CARRELLO
+    ordine.setCostoTotale(carrello.getPrezzoTotale().floatValue());
 
-        float spessoreMax = ordine.getProdotti()
-                .stream()
-                .map(Prodotto::getSpessore)
-                .max(Float::compare)
-                .orElse(0f);
+    // 🔥 CREAZIONE SPEDIZIONE
+    Spedizione spedizione = new Spedizione();
 
-        spedizione.setAltezza(altezzaMax);
-        spedizione.setLunghezza(lunghezzaMax);
-        spedizione.setSpessore(spessoreMax);
+    // PESO DAL CARRELLO
+    spedizione.setPeso(carrello.getPeso().floatValue());
 
-        // 🔗 COLLEGAMENTO BIDIREZIONALE
-        spedizione.setOrdine(ordine);
-        ordine.setSpedizione(spedizione);
+    // FRAGILE → almeno un prodotto fragile
+    boolean fragile = ordine.getProdotti()
+            .stream()
+            .anyMatch(Prodotto::isFragile);
 
+    spedizione.setFragile(fragile);
+
+    // DIMENSIONI → massimo tra i prodotti
+    float altezzaMax = ordine.getProdotti()
+            .stream()
+            .map(Prodotto::getAltezza)
+            .max(Float::compare)
+            .orElse(0f);
+
+    float lunghezzaMax = ordine.getProdotti()
+            .stream()
+            .map(Prodotto::getLunghezza)
+            .max(Float::compare)
+            .orElse(0f);
+
+    float spessoreMax = ordine.getProdotti()
+            .stream()
+            .map(Prodotto::getSpessore)
+            .max(Float::compare)
+            .orElse(0f);
+
+    spedizione.setAltezza(altezzaMax);
+    spedizione.setLunghezza(lunghezzaMax);
+    spedizione.setSpessore(spessoreMax);
+
+    // 🔗 COLLEGAMENTO BIDIREZIONALE
+    spedizione.setOrdine(ordine);
+    ordine.setSpedizione(spedizione);
+*/
         Ordine salvato = ordineRepository.save(ordine);
 
         // DATI UTENTE (ora funzionano)
@@ -105,6 +118,7 @@ public class OrdineService extends AbstractService<Ordine, OrdineDto>  {
 
         return ordineMapper.toDTO(salvato);
     }
+
 
     public List<OrdineDto> findByUserUsername(String username) {
         return ordineMapper.toDTOList(ordineRepository.findByUserUsername(username));
