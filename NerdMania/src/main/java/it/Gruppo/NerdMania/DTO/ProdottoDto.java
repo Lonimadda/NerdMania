@@ -1,5 +1,6 @@
 package it.Gruppo.NerdMania.DTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import it.Gruppo.NerdMania.Modelli.Categoria;
 import lombok.*;
 
@@ -7,6 +8,8 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ProdottoDto {
 
     private Integer id;
