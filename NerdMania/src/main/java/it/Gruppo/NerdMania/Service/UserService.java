@@ -37,8 +37,8 @@ private final PasswordEncoder passwordEncoder;
         return userMapper.toDTOList(userRepository.findByNomeContainingIgnoreCaseAndCognomeContainingIgnoreCase(nome, cognome));
     }
 
-    public List<UserDto> findByCognome(String cognome) {
-        return userMapper.toDTOList(userRepository.findByCognome(cognome));
+    public List<UserDto> findByCognomeContainingIngnoreCase(String cognome) {
+        return userMapper.toDTOList(userRepository.findByCognomeContainingIgnoreCase(cognome));
     }
 
     public List<UserDto> findByCartaFedeltaTrue(){

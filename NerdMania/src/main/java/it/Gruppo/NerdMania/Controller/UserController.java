@@ -31,9 +31,9 @@ public class UserController extends AbstractController<UserDto>{
     public List<UserDto>  findByNomeContainingIgnoreCaseAndCognomeContainingIgnoreCase(@RequestParam("nome") String  nome, @RequestParam("cognome") String cognome) {
         return userService.findByNomeContainingIgnoreCaseAndCognomeContainingIgnoreCase(nome,cognome);
     }
-    @GetMapping("/findByCognome")
-    public List<UserDto> findByCognome(@RequestParam("cognome") String cognome){
-        return userService.findByCognome(cognome);
+    @GetMapping("/findByCognomeContainingIgnoreCase")
+    public List<UserDto> findByCognomeContainingIgnoreCase(@RequestParam("cognome") String cognome){
+        return userService.findByCognomeContainingIngnoreCase(cognome);
     }
 
     @GetMapping("/findByCartaFedeltaTrue")

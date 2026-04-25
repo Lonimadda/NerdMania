@@ -17,7 +17,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             String cognome
     );
 
-    List<User> findByCognome(String cognome);
+    List<User> findByCognomeContainingIgnoreCase(String cognome);
 
     List<User> findByCartaFedeltaTrue();
 
