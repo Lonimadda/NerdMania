@@ -48,10 +48,10 @@ public class SecurityConfig {
                         .requestMatchers("/User/register").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/Prodotto/**").permitAll()
+                        .requestMatchers("/Carrello/**").permitAll()
                         .requestMatchers("/Categoria/**").permitAll()
                         .requestMatchers("/Catalogo/**").permitAll()
-                        .requestMatchers("/Ordine/insert").hasRole("ADMIN")
-                        .requestMatchers("/Ordine/**").permitAll()
+                        .requestMatchers("/Ordine/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
