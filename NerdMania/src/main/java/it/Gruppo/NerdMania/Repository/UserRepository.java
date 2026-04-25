@@ -1,5 +1,6 @@
 package it.Gruppo.NerdMania.Repository;
 
+import it.Gruppo.NerdMania.DTO.UserDto;
 import it.Gruppo.NerdMania.Modelli.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -10,6 +11,8 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
+
+    User findById(int id);
     List<User> findByNomeContainingIgnoreCase(String nome);
 
     List<User> findByNomeContainingIgnoreCaseAndCognomeContainingIgnoreCase(

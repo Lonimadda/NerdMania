@@ -29,6 +29,10 @@ private final PasswordEncoder passwordEncoder;
         this.passwordEncoder = passwordEncoder;
     }
 
+    public UserDto findById(int id) {
+        return userMapper.toDTO(userRepository.findById(id));
+    }
+
     public List<UserDto> findByNomeContainingIgnoreCase(String nome) {
         return userMapper.toDTOList(userRepository.findByNomeContainingIgnoreCase(nome));
     }

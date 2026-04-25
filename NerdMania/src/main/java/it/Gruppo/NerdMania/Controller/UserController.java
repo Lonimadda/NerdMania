@@ -22,6 +22,14 @@ public class UserController extends AbstractController<UserDto>{
     @Autowired
     private UserMapper userMapper;
 
+
+    @GetMapping("/findById")
+    public UserDto findById(
+            @RequestParam ("id") int id
+    ) {
+        return userService.findById(id);
+
+    }
     @GetMapping("/findByNomeContainingIgnoreCase")
     public List<UserDto> findByNomeContainingIgnoreCase(@RequestParam ("nome") String nome) {
         return userService.findByNomeContainingIgnoreCase(nome);
