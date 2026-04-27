@@ -41,26 +41,17 @@ public class JwtFilter extends OncePerRequestFilter {
         String username = null;
 
         try {
-
             if (authHeader != null && authHeader.startsWith("Bearer ")) {
                 token = authHeader.substring(7);
                 username = jwtService.extractUsername(token);
             }
-
         } catch (io.jsonwebtoken.ExpiredJwtException e) {
-
-            // Token scaduto → risposta 401 pulita
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.getWriter().write("Token expired");
-
             return;
-
         } catch (Exception e) {
-
-            // Token malformato o invalido
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.getWriter().write("Invalid token");
-
             return;
         }
 
@@ -91,11 +82,15 @@ public class JwtFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
+
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getServletPath();
+
         return path.startsWith("/auth/")
                 || path.startsWith("/User/register")
-                || path.startsWith("/User/login");
+                || path.startsWith("/User/login")
+                || path.equals("/Magazzino")
+                || path.startsWith("/Magazzino/");
     }
 }

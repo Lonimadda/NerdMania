@@ -5,6 +5,7 @@ import it.Gruppo.NerdMania.Service.MagazzinoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -35,6 +36,7 @@ public class MagazzinoController extends AbstractController<MagazzinoDto> {
         return service.findMagazziniConScorteBasse(soglia);
         // Restituisce i magazzini con quantità sotto la soglia
     }
+
 
     @GetMapping("/findMagazziniConScorteAlte")
     // Endpoint GET per trovare magazzini con scorte superiori a una certa soglia
