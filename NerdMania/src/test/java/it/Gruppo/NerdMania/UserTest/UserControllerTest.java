@@ -107,31 +107,31 @@ public class UserControllerTest {
         userDto.setCognome("Rossi");
         List<UserDto> userDtos = List.of(userDto);
 
-        when(userService.findByCognome("Rossi")).thenReturn(userDtos);
-        List<UserDto> result = userController.findByCognome("Rossi");
+        when(userService.findByCognomeContainingIngnoreCase("Rossi")).thenReturn(userDtos);
+        List<UserDto> result = userController.findByCognomeContainingIgnoreCase("Rossi");
 
         assertNotNull(result);
         assertEquals("Rossi",result.getFirst().getCognome());
-        verify(userService).findByCognome("Rossi");
+        verify(userService).findByCognomeContainingIngnoreCase("Rossi");
     }
 
     @Test
     void findByCognome_empty(){
-        when(userService.findByCognome("xyz")).thenReturn(List.of());
+        when(userService.findByCognomeContainingIngnoreCase("xyz")).thenReturn(List.of());
 
-        List<UserDto> result = userController.findByCognome("xyz");
+        List<UserDto> result = userController.findByCognomeContainingIgnoreCase("xyz");
         assertNotNull(result);
         assertTrue(result.isEmpty());
-        verify(userService).findByCognome("xyz");
+        verify(userService).findByCognomeContainingIngnoreCase("xyz");
     }
 
     @Test
     void findByCognome_null(){
-        when(userService.findByCognome(null)).thenReturn(List.of());
-        List<UserDto> result = userController.findByCognome(null);
+        when(userService.findByCognomeContainingIngnoreCase(null)).thenReturn(List.of());
+        List<UserDto> result = userController.findByCognomeContainingIgnoreCase(null);
         assertNotNull(result);
         assertTrue(result.isEmpty());
-        verify(userService).findByCognome(null);
+        verify(userService).findByCognomeContainingIngnoreCase(null);
     }
 
     @Test

@@ -116,14 +116,14 @@ public class UserServiceTest {
         List<User> list = List.of(user);
         List<UserDto> listDto = List.of(userDto);
 
-        when(userRepository.findByCognome("Rossi")).thenReturn(list);
+        when(userRepository.findByCognomeContainingIgnoreCase("Rossi")).thenReturn(list);
         when(userMapper.toDTOList(list)).thenReturn(listDto);
 
-        List<UserDto> result = userService.findByCognome("Rossi");
+        List<UserDto> result = userService.findByCognomeContainingIngnoreCase("Rossi");
 
         assertNotNull(result);
         assertEquals("Rossi", result.get(0).getCognome());
-        verify(userRepository).findByCognome("Rossi");
+        verify(userRepository).findByCognomeContainingIgnoreCase("Rossi");
         verify(userMapper).toDTOList(list);
     }
 
@@ -132,14 +132,14 @@ public class UserServiceTest {
         List<User> list = List.of();
         List<UserDto> listDto = List.of();
 
-        when(userRepository.findByCognome("Rossi")).thenReturn(list);
+        when(userRepository.findByCognomeContainingIgnoreCase("Rossi")).thenReturn(list);
         when(userMapper.toDTOList(list)).thenReturn(listDto);
 
-        List<UserDto> result = userService.findByCognome("Rossi");
+        List<UserDto> result = userService.findByCognomeContainingIngnoreCase("Rossi");
 
         assertNotNull(result);
         assertTrue(result.isEmpty());
-        verify(userRepository).findByCognome("Rossi");
+        verify(userRepository).findByCognomeContainingIgnoreCase("Rossi");
         verify(userMapper).toDTOList(list);
     }
 

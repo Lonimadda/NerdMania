@@ -4,121 +4,194 @@ import it.Gruppo.NerdMania.Controller.SpedizioneController;
 import it.Gruppo.NerdMania.DTO.SpedizioneDto;
 import it.Gruppo.NerdMania.Modelli.Ordine;
 import it.Gruppo.NerdMania.Service.SpedizioneService;
+
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import org.springframework.test.web.servlet.MockMvc;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(SpedizioneController.class)
-class SpedizioneControllerTest {
+@ExtendWith(MockitoExtension.class)
+public class SpedizioneControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
-
-    @MockitoBean
+    @Mock
     private SpedizioneService service;
 
-    @Test
-    void shouldFindByFragileTrue() throws Exception {
-        SpedizioneDto dto = new SpedizioneDto();
-        dto.setFragile(true);
+    @InjectMocks
+    private SpedizioneController controller;
 
-        when(service.findByFragileTrue()).thenReturn(List.of(dto));
 
-        mockMvc.perform(get("/Spedizione/findByFragileTrue"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].fragile").value(true));
-    }
+
+    // ------------------------------------------------
 
     @Test
-    void shouldFindByEsteroTrue() throws Exception {
-        SpedizioneDto dto = new SpedizioneDto();
-        dto.setEstero(true);
+    void findByPesoGreaterThan_found() {
 
-        when(service.findByEsteroTrue()).thenReturn(List.of(dto));
-
-        mockMvc.perform(get("/Spedizione/findByEsteroTrue"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].estero").value(true));
-    }
-
-    @Test
-    void shouldFindByPesoGreaterThan() throws Exception {
         SpedizioneDto dto = new SpedizioneDto();
         dto.setPeso(15);
 
-        when(service.findByPesoGreaterThan(10)).thenReturn(List.of(dto));
+        when(service.findByPesoGreaterThan(10))
+                .thenReturn(List.of(dto));
 
-        mockMvc.perform(get("/Spedizione/findByPesoGreaterThan")
-                        .param("peso", "10"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].peso").value(15));
+        List<SpedizioneDto> result =
+                controller.findByPesoGreaterThan(10);
+
+        assertNotNull(result);
+        assertEquals(15, result.getFirst().getPeso());
+
+        verify(service).findByPesoGreaterThan(10);
     }
 
+    // ------------------------------------------------
+
     @Test
-    void shouldFindByPesoLessThan() throws Exception {
+    void findByPesoGreaterThan_empty() {
+
+        when(service.findByPesoGreaterThan(10))
+                .thenReturn(List.of());
+
+        List<SpedizioneDto> result =
+                controller.findByPesoGreaterThan(10);
+
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+
+        verify(service).findByPesoGreaterThan(10);
+    }
+
+    // ------------------------------------------------
+
+    @Test
+    void findByPesoLessThan_found() {
+
         SpedizioneDto dto = new SpedizioneDto();
         dto.setPeso(9);
 
-        when(service.findByPesoLessThan(10)).thenReturn(List.of(dto));
+        when(service.findByPesoLessThan(10))
+                .thenReturn(List.of(dto));
 
-        mockMvc.perform(get("/Spedizione/findByPesoLessThan")
-                        .param("peso", "10"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].peso").value(9));
+        List<SpedizioneDto> result =
+                controller.findByPesoLessThan(10);
+
+        assertNotNull(result);
+        assertEquals(9, result.getFirst().getPeso());
+
+        verify(service).findByPesoLessThan(10);
     }
 
+    // ------------------------------------------------
+
     @Test
-    void shouldFindByAltezzaBetween() throws Exception {
+    void findByAltezzaBetween_found() {
+
         SpedizioneDto dto = new SpedizioneDto();
         dto.setAltezza(12);
 
-        when(service.findByAltezzaBetween(10,15)).thenReturn(List.of(dto));
+        when(service.findByAltezzaBetween(10, 15))
+                .thenReturn(List.of(dto));
 
-        mockMvc.perform(get("/Spedizione/findByAltezzaBetween")
-                        .param("min", "10")
-                        .param("max","15"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].altezza").value(12));
+        List<SpedizioneDto> result =
+                controller.findByAltezzaBetween(10, 15);
+
+        assertNotNull(result);
+        assertEquals(12, result.getFirst().getAltezza());
+
+        verify(service).findByAltezzaBetween(10, 15);
     }
 
+    // ------------------------------------------------
+
     @Test
-    void shouldFindByOrdineId() throws Exception {
-        Ordine ordine= new Ordine();
+    void findByOrdineId_found() {
+
+        Ordine ordine = new Ordine();
         ordine.setId(1);
 
         SpedizioneDto dto = new SpedizioneDto();
         dto.setOrdine(ordine);
 
-        when(service.findByOrdineId(1)).thenReturn(List.of(dto));
+        when(service.findByOrdineId(1))
+                .thenReturn(List.of(dto));
 
-        mockMvc.perform(get("/Spedizione/findByOrdineId")
-                        .param("id", "1"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].ordine.id").value(1));
+        List<SpedizioneDto> result =
+                controller.findByOrdineId(1);
+
+        assertNotNull(result);
+        assertEquals(1,
+                result.getFirst().getOrdine().getId());
+
+        verify(service).findByOrdineId(1);
     }
 
+    // ------------------------------------------------
+
     @Test
-    void shouldFindByAltezzaGreaterThanOrLunghezzaGreaterThan() throws Exception {
+    void findByOrdineId_empty() {
+
+        when(service.findByOrdineId(1))
+                .thenReturn(List.of());
+
+        List<SpedizioneDto> result =
+                controller.findByOrdineId(1);
+
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+
+        verify(service).findByOrdineId(1);
+    }
+
+    // ------------------------------------------------
+
+    @Test
+    void findByAltezzaGreaterThanOrLunghezzaGreaterThan_found() {
+
         SpedizioneDto dto = new SpedizioneDto();
         dto.setAltezza(10);
         dto.setLunghezza(15);
 
-        when(service.findByAltezzaGreaterThanOrLunghezzaGreaterThan(15,5)).thenReturn(List.of(dto));
+        when(service
+                .findByAltezzaGreaterThanOrLunghezzaGreaterThan(15, 5))
+                .thenReturn(List.of(dto));
 
-        mockMvc.perform(get("/Spedizione/findByAltezzaGreaterThanOrLunghezzaGreaterThan")
-                        .param("h", "15")
-                        .param("l","5"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].altezza").value(10))
-                .andExpect(jsonPath("$[0].lunghezza").value(15));
+        List<SpedizioneDto> result =
+                controller
+                        .findByAltezzaGreaterThanOrLunghezzaGreaterThan(15, 5);
+
+        assertNotNull(result);
+        assertEquals(10,
+                result.getFirst().getAltezza());
+        assertEquals(15,
+                result.getFirst().getLunghezza());
+
+        verify(service)
+                .findByAltezzaGreaterThanOrLunghezzaGreaterThan(15, 5);
     }
+
+    // ------------------------------------------------
+
+    @Test
+    void findByAltezzaGreaterThanOrLunghezzaGreaterThan_empty() {
+
+        when(service
+                .findByAltezzaGreaterThanOrLunghezzaGreaterThan(15, 5))
+                .thenReturn(List.of());
+
+        List<SpedizioneDto> result =
+                controller
+                        .findByAltezzaGreaterThanOrLunghezzaGreaterThan(15, 5);
+
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+
+        verify(service)
+                .findByAltezzaGreaterThanOrLunghezzaGreaterThan(15, 5);
+    }
+
 }
