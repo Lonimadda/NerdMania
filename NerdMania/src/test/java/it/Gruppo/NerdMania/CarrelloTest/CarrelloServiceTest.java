@@ -37,7 +37,7 @@ class CarrelloServiceTest {
 
     @BeforeEach
     void setUp() {
-        carrelloService = new CarrelloService(carrelloRepository, converter, carrelloMapper, carrelloRepository);
+        carrelloService = new CarrelloService(carrelloRepository, converter, carrelloMapper);
     }
 
     @Test
@@ -48,12 +48,12 @@ class CarrelloServiceTest {
         Carrello carrello = new Carrello();
         carrello.setId(1);
 
-        CarrelloDto dto = new CarrelloDto(1, 50.0, 3, 1.2);
+        CarrelloDto dto = new CarrelloDto(1,1, 50.0, 3, 1.2);
 
         when(carrelloRepository.findByUser(user)).thenReturn(Optional.of(carrello));
         when(carrelloMapper.toDTO(carrello)).thenReturn(dto);
 
-        CarrelloDto result = carrelloService.findByUser(user);
+        CarrelloDto result = carrelloService.findByUser(user.getId());
 
         assertEquals(dto, result);
         verify(carrelloRepository).findByUser(user);
@@ -67,7 +67,7 @@ class CarrelloServiceTest {
 
         when(carrelloRepository.findByUser(user)).thenReturn(Optional.empty());
 
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> carrelloService.findByUser(user));
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> carrelloService.findByUser(user.getId()));
 
         assertEquals("Carrello non trovato per l'utente", exception.getMessage());
         verify(carrelloRepository).findByUser(user);
@@ -80,8 +80,8 @@ class CarrelloServiceTest {
         Carrello carrello2 = new Carrello();
         carrello2.setId(2);
 
-        CarrelloDto dto1 = new CarrelloDto(1, 40.0, 2, 0.8);
-        CarrelloDto dto2 = new CarrelloDto(2, 90.0, 5, 2.1);
+        CarrelloDto dto1 = new CarrelloDto(1,1, 40.0, 2, 0.8);
+        CarrelloDto dto2 = new CarrelloDto(2, 1,90.0, 5, 2.1);
 
         when(carrelloRepository.findByOrdineIsNull()).thenReturn(List.of(carrello1, carrello2));
         when(carrelloMapper.toDTO(carrello1)).thenReturn(dto1);
@@ -102,7 +102,7 @@ class CarrelloServiceTest {
         Carrello carrello = new Carrello();
         carrello.setId(3);
 
-        CarrelloDto dto = new CarrelloDto(3, 120.0, 6, 3.0);
+        CarrelloDto dto = new CarrelloDto(3,1, 120.0, 6, 3.0);
 
         when(carrelloRepository.findByPrezzoTotaleGreaterThan(100.0)).thenReturn(List.of(carrello));
         when(carrelloMapper.toDTO(carrello)).thenReturn(dto);
@@ -120,7 +120,7 @@ class CarrelloServiceTest {
         Carrello carrello = new Carrello();
         carrello.setId(4);
 
-        CarrelloDto dto = new CarrelloDto(4, 80.0, 7, 1.9);
+        CarrelloDto dto = new CarrelloDto(4,1, 80.0, 7, 1.9);
 
         when(carrelloRepository.findByQuantitaGreaterThan(5)).thenReturn(List.of(carrello));
         when(carrelloMapper.toDTO(carrello)).thenReturn(dto);
@@ -138,7 +138,7 @@ class CarrelloServiceTest {
         Carrello carrello = new Carrello();
         carrello.setId(5);
 
-        CarrelloDto dto = new CarrelloDto(5, 30.0, 1, 0.5);
+        CarrelloDto dto = new CarrelloDto(5,1, 30.0, 1, 0.5);
 
         when(carrelloRepository.findByPesoLessThan(1.0)).thenReturn(List.of(carrello));
         when(carrelloMapper.toDTO(carrello)).thenReturn(dto);

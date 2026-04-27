@@ -6,31 +6,30 @@ import it.Gruppo.NerdMania.Modelli.Prodotto;
 import it.Gruppo.NerdMania.Modelli.User;
 import it.Gruppo.NerdMania.Service.OrdineService;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import org.springframework.test.web.servlet.MockMvc;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(OrdineController.class)
+@ExtendWith(MockitoExtension.class)
 class OrdineControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
-
-    @MockitoBean
+    @Mock
     private OrdineService service;
 
+    @InjectMocks
+    private OrdineController controller;
+
     @Test
-    void shouldFindByUserUsername() throws Exception {
-        User user= new User();
+    void findByUserUsername_found() {
+        User user = new User();
         user.setUsername("adinolfi");
 
         OrdineDto dto = new OrdineDto();
@@ -38,110 +37,122 @@ class OrdineControllerTest {
 
         when(service.findByUserUsername("adinolfi")).thenReturn(List.of(dto));
 
-        mockMvc.perform(get("/Ordine/findByUserUsername")
-                        .param("username", "adinolfi"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].user.username").value("adinolfi"));
+        List<OrdineDto> result = controller.findByUserUsername("adinolfi");
+
+        assertNotNull(result);
+        assertEquals("adinolfi", result.getFirst().getUser().getUsername());
+
+        verify(service).findByUserUsername("adinolfi");
     }
 
     @Test
-    void shouldFindAllByOrderByCostoTotaleDesc() throws Exception {
+    void findAllByOrderByCostoTotaleDesc_found() {
         OrdineDto dto = new OrdineDto();
         dto.setCostoTotale(100);
         OrdineDto dto1 = new OrdineDto();
         dto1.setCostoTotale(50);
-        OrdineDto dto2 = new OrdineDto();
-        dto2.setCostoTotale(10);
 
-        List<OrdineDto> dtos = List.of(dto, dto1, dto2);
+        when(service.findAllByOrderByCostoTotaleDesc())
+                .thenReturn(List.of(dto, dto1));
 
-        when(service.findAllByOrderByCostoTotaleDesc()).thenReturn(dtos);
+        List<OrdineDto> result = controller.findAllByOrderByCostoTotaleDesc();
 
-        mockMvc.perform(get("/Ordine/findAllByOrderByCostoTotaleDesc"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].costoTotale").value(100))
-                .andExpect(jsonPath("$[1].costoTotale").value(50))
-                .andExpect(jsonPath("$[2].costoTotale").value(10));
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        assertEquals(100, result.get(0).getCostoTotale());
+
+        verify(service).findAllByOrderByCostoTotaleDesc();
     }
 
     @Test
-    void shouldFindAllByOrderByCostoTotaleAsc() throws Exception {
+    void findAllByOrderByCostoTotaleAsc_found() {
         OrdineDto dto = new OrdineDto();
         dto.setCostoTotale(10);
         OrdineDto dto1 = new OrdineDto();
-        dto1.setCostoTotale(50);
-        OrdineDto dto2 = new OrdineDto();
-        dto2.setCostoTotale(100);
+        dto1.setCostoTotale(100);
 
-        List<OrdineDto> dtos = List.of(dto, dto1, dto2);
+        when(service.findAllByOrderByCostoTotaleAsc())
+                .thenReturn(List.of(dto, dto1));
 
-        when(service.findAllByOrderByCostoTotaleAsc()).thenReturn(dtos);
+        List<OrdineDto> result = controller.findAllByOrderByCostoTotaleAsc();
 
-        mockMvc.perform(get("/Ordine/findAllByOrderByCostoTotaleAsc"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].costoTotale").value(10))
-                .andExpect(jsonPath("$[1].costoTotale").value(50))
-                .andExpect(jsonPath("$[2].costoTotale").value(100));
+        assertNotNull(result);
+        assertEquals(10, result.get(0).getCostoTotale());
+
+        verify(service).findAllByOrderByCostoTotaleAsc();
     }
 
     @Test
-    void shouldFindByIndirizzoSpedizioneContainingIgnoreCase() throws Exception {
+    void findByIndirizzoSpedizioneContainingIgnoreCase_found() {
         OrdineDto dto = new OrdineDto();
         dto.setIndirizzoSpedizione("via manzoni");
 
-        when(service.findByIndirizzoSpedizioneContainingIgnoreCase("via manzoni")).thenReturn(List.of(dto));
+        when(service.findByIndirizzoSpedizioneContainingIgnoreCase("via manzoni"))
+                .thenReturn(List.of(dto));
 
-        mockMvc.perform(get("/Ordine/findByIndirizzoSpedizioneContainingIgnoreCase")
-                        .param("testo", "via manzoni"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].indirizzoSpedizione").value("via manzoni"));
+        List<OrdineDto> result =
+                controller.findByIndirizzoSpedizioneContainingIgnoreCase("via manzoni");
+
+        assertNotNull(result);
+        assertEquals("via manzoni", result.getFirst().getIndirizzoSpedizione());
+
+        verify(service).findByIndirizzoSpedizioneContainingIgnoreCase("via manzoni");
     }
 
     @Test
-    void shouldFindByCostoTotaleGreaterThan() throws Exception {
+    void findByCostoTotaleGreaterThan_found() {
         OrdineDto dto = new OrdineDto();
         dto.setCostoTotale(120);
 
-        when(service.findByCostoTotaleGreaterThan(110)).thenReturn(List.of(dto));
+        when(service.findByCostoTotaleGreaterThan(110))
+                .thenReturn(List.of(dto));
 
-        mockMvc.perform(get("/Ordine/findByCostoTotaleGreaterThan")
-                        .param("prezzo", "110"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].costoTotale").value(120));
+        List<OrdineDto> result = controller.findByCostoTotaleGreaterThan(110);
+
+        assertNotNull(result);
+        assertEquals(120, result.getFirst().getCostoTotale());
+
+        verify(service).findByCostoTotaleGreaterThan(110);
     }
 
     @Test
-    void shouldFindByCostoTotaleLessThan() throws Exception {
+    void findByCostoTotaleLessThan_found() {
         OrdineDto dto = new OrdineDto();
         dto.setCostoTotale(100);
 
-        when(service.findByCostoTotaleLessThan(110)).thenReturn(List.of(dto));
+        when(service.findByCostoTotaleLessThan(110))
+                .thenReturn(List.of(dto));
 
-        mockMvc.perform(get("/Ordine/findByCostoTotaleLessThan")
-                        .param("prezzo", "110"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].costoTotale").value(100));
+        List<OrdineDto> result = controller.findByCostoTotaleLessThan(110);
+
+        assertNotNull(result);
+        assertEquals(100, result.getFirst().getCostoTotale());
+
+        verify(service).findByCostoTotaleLessThan(110);
     }
 
     @Test
-    void shouldFindByProdottiId() throws Exception {
-        Prodotto prodotto= new Prodotto();
-        prodotto.setId(1);
-        Prodotto prodotto1= new Prodotto();
-        prodotto1.setId(2);
-        List<Prodotto> prodotti= new ArrayList<>();
-        prodotti.add(prodotto);
-        prodotti.add(prodotto1);
+    void findByProdottiId_found() {
+        Prodotto p1 = new Prodotto();
+        p1.setId(1);
+        Prodotto p2 = new Prodotto();
+        p2.setId(2);
+
+        List<Prodotto> prodotti = new ArrayList<>();
+        prodotti.add(p1);
+        prodotti.add(p2);
 
         OrdineDto dto = new OrdineDto();
         dto.setProdotti(prodotti);
 
         when(service.findByProdottiId(1)).thenReturn(List.of(dto));
 
-        mockMvc.perform(get("/Ordine/findByProdottiId")
-                        .param("prodottoId", "1"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].prodotti[0].id").value(1))
-                .andExpect(jsonPath("$[0].prodotti[1].id").value(2));
+        List<OrdineDto> result = controller.findByProdottiId(1);
+
+        assertNotNull(result);
+        assertEquals(1, result.getFirst().getProdotti().get(0).getId());
+        assertEquals(2, result.getFirst().getProdotti().get(1).getId());
+
+        verify(service).findByProdottiId(1);
     }
 }

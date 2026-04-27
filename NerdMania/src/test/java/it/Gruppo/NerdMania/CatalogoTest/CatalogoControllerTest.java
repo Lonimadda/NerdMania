@@ -4,141 +4,214 @@ import it.Gruppo.NerdMania.Controller.CatalogoController;
 import it.Gruppo.NerdMania.DTO.CatalogoDto;
 import it.Gruppo.NerdMania.Service.CatalogoService;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
-import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import org.springframework.test.web.servlet.MockMvc;
-import java.util.List;
-import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@WebMvcTest(CatalogoController.class)
-@AutoConfigureMockMvc(addFilters = false)
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
 class CatalogoControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
-
-    @MockitoBean
+    @Mock
     private CatalogoService catalogoService;
 
+    @InjectMocks
+    private CatalogoController catalogoController;
+
     @Test
-    void testFindByNome() throws Exception {
-        CatalogoDto dto = new CatalogoDto(1L, "Manga", List.of());
+    void testFindByNome_found() {
 
-        when(catalogoService.findByNome("Manga")).thenReturn(dto);
+        CatalogoDto dto =
+                new CatalogoDto(1L, "Manga", List.of());
 
-        mockMvc.perform(get("/Catalogo/findByNome")
-                        .param("nome", "Manga"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(is(1)))
-                .andExpect(jsonPath("$.nome").value(is("Manga")))
-                .andExpect(jsonPath("$.categorie").isArray())
-                .andExpect(jsonPath("$.categorie.length()").value(is(0)));
+        when(catalogoService.findByNome("Manga"))
+                .thenReturn(dto);
+
+        CatalogoDto result =
+                catalogoController.findByNome("Manga");
+
+        assertNotNull(result);
+        assertEquals(1L, result.getId());
+        assertEquals("Manga", result.getNome());
+        assertNotNull(result.getCategorie());
+        assertEquals(0, result.getCategorie().size());
+
+        verify(catalogoService).findByNome("Manga");
     }
 
     @Test
-    void testExistsByNome() throws Exception {
-        when(catalogoService.existsByNome("Manga")).thenReturn(true);
+    void testExistsByNome_true() {
 
-        mockMvc.perform(get("/Catalogo/existsByNome")
-                        .param("nome", "Manga"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$").value(is(true)));
+        when(catalogoService.existsByNome("Manga"))
+                .thenReturn(true);
+
+        boolean result =
+                catalogoController.existsByNome("Manga");
+
+        assertTrue(result);
+
+        verify(catalogoService).existsByNome("Manga");
     }
 
     @Test
-    void testFindByNomeContaining() throws Exception {
+    void testExistsByNome_false() {
+
+        when(catalogoService.existsByNome("XYZ"))
+                .thenReturn(false);
+
+        boolean result =
+                catalogoController.existsByNome("XYZ");
+
+        assertFalse(result);
+
+        verify(catalogoService).existsByNome("XYZ");
+    }
+
+    @Test
+    void testFindByNomeContaining_found() {
+
         List<CatalogoDto> lista = List.of(
                 new CatalogoDto(1L, "Manga", List.of()),
                 new CatalogoDto(2L, "Super Manga", List.of())
         );
 
-        when(catalogoService.findByNomeContaining("Manga")).thenReturn(lista);
+        when(catalogoService.findByNomeContaining("Manga"))
+                .thenReturn(lista);
 
-        mockMvc.perform(get("/Catalogo/findByNomeContaining")
-                        .param("nome", "Manga"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").value(is(1)))
-                .andExpect(jsonPath("$[0].nome").value(is("Manga")))
-                .andExpect(jsonPath("$[1].id").value(is(2)))
-                .andExpect(jsonPath("$[1].nome").value(is("Super Manga")));
+        List<CatalogoDto> result =
+                catalogoController.findByNomeContaining("Manga");
+
+        assertNotNull(result);
+        assertEquals(2, result.size());
+
+        assertEquals("Manga", result.get(0).getNome());
+        assertEquals("Super Manga", result.get(1).getNome());
+
+        verify(catalogoService).findByNomeContaining("Manga");
     }
 
     @Test
-    void testFindByNomeStartingWith() throws Exception {
+    void testFindByNomeContaining_empty() {
+
+        when(catalogoService.findByNomeContaining("xyz"))
+                .thenReturn(List.of());
+
+        List<CatalogoDto> result =
+                catalogoController.findByNomeContaining("xyz");
+
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+
+        verify(catalogoService).findByNomeContaining("xyz");
+    }
+
+    @Test
+    void testFindByNomeStartingWith_found() {
+
         List<CatalogoDto> lista = List.of(
                 new CatalogoDto(3L, "Game Pass", List.of())
         );
 
-        when(catalogoService.findByNomeStartingWith("Game")).thenReturn(lista);
+        when(catalogoService.findByNomeStartingWith("Game"))
+                .thenReturn(lista);
 
-        mockMvc.perform(get("/Catalogo/findByNomeStartingWith")
-                        .param("nome", "Game"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").value(is(3)))
-                .andExpect(jsonPath("$[0].nome").value(is("Game Pass")));
+        List<CatalogoDto> result =
+                catalogoController.findByNomeStartingWith("Game");
+
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        assertEquals("Game Pass", result.getFirst().getNome());
+
+        verify(catalogoService).findByNomeStartingWith("Game");
     }
 
     @Test
-    void testFindByNomeEndingWith() throws Exception {
+    void testFindByNomeEndingWith_found() {
+
         List<CatalogoDto> lista = List.of(
                 new CatalogoDto(4L, "Action Figure", List.of())
         );
 
-        when(catalogoService.findByNomeEndingWith("Figure")).thenReturn(lista);
+        when(catalogoService.findByNomeEndingWith("Figure"))
+                .thenReturn(lista);
 
-        mockMvc.perform(get("/Catalogo/findByNomeEndingWith")
-                        .param("nome", "Figure"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").value(is(4)))
-                .andExpect(jsonPath("$[0].nome").value(is("Action Figure")));
+        List<CatalogoDto> result =
+                catalogoController.findByNomeEndingWith("Figure");
+
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        assertEquals("Action Figure", result.getFirst().getNome());
+
+        verify(catalogoService).findByNomeEndingWith("Figure");
     }
 
     @Test
-    void testFindCataloghiConCategorie() throws Exception {
+    void testFindCataloghiConCategorie_found() {
+
         List<CatalogoDto> lista = List.of(
                 new CatalogoDto(5L, "Anime", List.of())
         );
 
-        when(catalogoService.findCataloghiConCategorie()).thenReturn(lista);
+        when(catalogoService.findCataloghiConCategorie())
+                .thenReturn(lista);
 
-        mockMvc.perform(get("/Catalogo/findCataloghiConCategorie"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").value(is(5)))
-                .andExpect(jsonPath("$[0].nome").value(is("Anime")));
+        List<CatalogoDto> result =
+                catalogoController.findCataloghiConCategorie();
+
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        assertEquals("Anime", result.getFirst().getNome());
+
+        verify(catalogoService).findCataloghiConCategorie();
     }
 
     @Test
-    void testFindCataloghiSenzaCategorie() throws Exception {
+    void testFindCataloghiSenzaCategorie_found() {
+
         List<CatalogoDto> lista = List.of(
                 new CatalogoDto(6L, "Vuoto", List.of())
         );
 
-        when(catalogoService.findCataloghiSenzaCategorie()).thenReturn(lista);
+        when(catalogoService.findCataloghiSenzaCategorie())
+                .thenReturn(lista);
 
-        mockMvc.perform(get("/Catalogo/findCataloghiSenzaCategorie"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").value(is(6)))
-                .andExpect(jsonPath("$[0].nome").value(is("Vuoto")));
+        List<CatalogoDto> result =
+                catalogoController.findCataloghiSenzaCategorie();
+
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        assertEquals("Vuoto", result.getFirst().getNome());
+
+        verify(catalogoService).findCataloghiSenzaCategorie();
     }
 
     @Test
-    void testFindByNumeroCategorieGreaterThan() throws Exception {
+    void testFindByNumeroCategorieGreaterThan_found() {
+
         List<CatalogoDto> lista = List.of(
                 new CatalogoDto(7L, "Completo", List.of())
         );
 
-        when(catalogoService.findByNumeroCategorieGreaterThan(3)).thenReturn(lista);
+        when(catalogoService
+                .findByNumeroCategorieGreaterThan(3))
+                .thenReturn(lista);
 
-        mockMvc.perform(get("/Catalogo/findByNumeroCategorieGreaterThan")
-                        .param("size", "3"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").value(is(7)))
-                .andExpect(jsonPath("$[0].nome").value(is("Completo")));
+        List<CatalogoDto> result =
+                catalogoController
+                        .findByNumeroCategorieGreaterThan(3);
+
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        assertEquals("Completo", result.getFirst().getNome());
+
+        verify(catalogoService)
+                .findByNumeroCategorieGreaterThan(3);
     }
+
 }

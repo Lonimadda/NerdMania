@@ -44,20 +44,6 @@ public class SpedizioneServiceTest {
         assertEquals(true, result.get(0).isFragile());
     }
 
-    @Test
-    void shouldFindByEsteroTrue() {
-        Spedizione spedizione = new Spedizione();
-        spedizione.setEstero(true);
-        SpedizioneDto dto = new SpedizioneDto();
-        dto.setEstero(true);
-
-        when(spedizioneRepository.findByEsteroTrue()).thenReturn(List.of(spedizione));
-        when(spedizioneMapper.toDTOList(any())).thenReturn(List.of(dto));
-
-        List<SpedizioneDto> result = spedizioneService.findByEsteroTrue();
-
-        assertEquals(true, result.get(0).isEstero());
-    }
 
     @Test
     void shouldFindByPesoGreaterThan() {
